@@ -78,10 +78,12 @@ const projects = [
     description:
       `The Gopher Request app is a platform connecting users with local drivers, experts, and others for on-demand tasks and deliveries. Users can request services like delivery, yard work, moving, and more, while also having the flexibility to set their own prices or request bids from available "Gophers". `,
     link: "https://gophergo.io/",
+    // File extensions are uppercase (.JPG): Vercel's filesystem is case-sensitive
     images: [
-      "/projects/screenshots/gopher/gopher2.jpg",
-      "/projects/screenshots/gopher/gopher2.jpg",
-      "/projects/screenshots/gopher/gopher3.jpg",
+      "/projects/screenshots/gopher/gopher2.JPG",
+      "/projects/screenshots/gopher/gopher3.JPG",
+      "/projects/screenshots/gopher/gopher1.JPG",
+      "/projects/screenshots/gopher/gopher4.JPG",
     ],
     tags: ["React Native", "React Navigation", "Google Maps API", "Firebase Dynamic Links"],
     contributions: [
@@ -90,7 +92,7 @@ const projects = [
         "Enhanced user experience by enabling seamless navigation and accurate location-based tracking."
     ],
 
-    displayImage: "/projects/screenshots/gopher/gopher2.jpg",
+    displayImage: "/projects/screenshots/gopher/gopher2.JPG",
   },
   {
     title: "SWIFI",
