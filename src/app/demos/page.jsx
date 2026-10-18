@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense } from "react";
-import ProjectCard from "@/app/components/ProjectCard"; // adjust if needed
+import ProjectCard from "@/app/components/ProjectCard";
 import dynamic from "next/dynamic";
 import ProjectDashboard from "../components/playground/ProjectManagement";
 
@@ -10,7 +10,7 @@ const CubeSceneMini = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="h-[250px] w-full bg-gray-900 animate-pulse rounded-t-xl" />
+      <div className="h-[250px] w-full bg-[var(--surface)] animate-pulse rounded-t-xl" />
     ),
   }
 );
@@ -20,25 +20,25 @@ const ScrollStoryMini = dynamic(
   { ssr: false }
 );
 
-export default function ProjectsPage() {
+export default function DemosPage() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <Projects />
+      <DemosGrid />
     </Suspense>
   );
 }
 
 const uiExperiments = [
   {
-    title: "Project Mangement Dashboard",
+    title: "Project Management Dashboard",
     slug: "playground/project-dashboard",
-    description: "Project management dashboard",
+    description:
+      "Live, interactive project management dashboard — built with React and Next.js.",
     image: "/images/3d-viewer-demo.gif",
     link: "/playground/project-dashboard",
     tags: ["React", "Next.js", "Tailwind CSS", "Project Management"],
     liveComponent: <ProjectDashboard />,
   },
-
   {
     title: "Scroll Storytelling",
     slug: "playground/scroll-storytelling",
@@ -55,13 +55,25 @@ const uiExperiments = [
     image: "/images/3d-viewer-demo.gif",
     link: "/playground/3d-viewer",
     tags: ["Three.js", "React Three Fiber", "WebGL"],
-    liveComponent: <CubeSceneMini />, // 👈 interactive preview
+    liveComponent: <CubeSceneMini />,
   },
 ];
 
-function Projects() {
+function DemosGrid() {
   return (
-    <section id="project-section" className="relative min-h-screen pt-12">
+    <section
+      id="demos-section"
+      className="relative min-h-screen pt-12 px-4 md:px-8 max-w-6xl mx-auto"
+    >
+      <div className="text-center mb-10">
+        <h1 className="text-3xl md:text-4xl font-bold mb-3">
+          Interactive Demos
+        </h1>
+        <p className="max-w-2xl mx-auto [color:var(--text-muted)]">
+          A few live, hands-on builds — hover or interact with each card
+          directly, no video needed.
+        </p>
+      </div>
       <div className="project-grid mb-6">
         <div className="project-grid">
           {uiExperiments.map((proj, idx) => (

@@ -40,6 +40,11 @@ export default function ProjectDashboard() {
   const [notifications, setNotifications] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Start with the sidebar collapsed to icons on phone-sized screens
+  useEffect(() => {
+    if (window.innerWidth < 768) setSidebarOpen(false);
+  }, []);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setProjects(generateDummyProjects());
@@ -86,10 +91,10 @@ export default function ProjectDashboard() {
       {/* Sidebar */}
       <div
         className={`${
-          sidebarOpen ? "w-64" : "w-20"
-        } bg-indigo-900 transition-all duration-300 overflow-hidden border-r border-indigo-800`}
+          sidebarOpen ? "w-64" : "w-16 md:w-20"
+        } shrink-0 bg-indigo-900 transition-all duration-300 overflow-hidden border-r border-indigo-800`}
       >
-        <div className="p-4 flex items-center justify-between border-b border-indigo-800">
+        <div className="p-3 md:p-4 flex items-center justify-between border-b border-indigo-800">
           {sidebarOpen && (
             <h1 className="text-2xl font-extrabold tracking-tight text-white">
               <span className="text-indigo-300">Project</span>
@@ -155,11 +160,11 @@ export default function ProjectDashboard() {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 min-w-0 flex flex-col overflow-hidden">
         {/* Top Navigation */}
         <header className="bg-gray-800 border-b border-gray-700">
-          <div className="px-6 py-4 flex justify-between items-center">
-            <h2 className="text-xl font-semibold capitalize text-white">
+          <div className="px-4 md:px-6 py-4 flex justify-between items-center gap-3">
+            <h2 className="min-w-0 truncate text-lg md:text-xl font-semibold capitalize text-white">
               {
                 {
                   overview: "Project Overview",
@@ -171,7 +176,7 @@ export default function ProjectDashboard() {
                 }[activeTab]
               }
             </h2>
-            <div className="flex items-center gap-4">
+            <div className="flex shrink-0 items-center gap-3 md:gap-4">
               <NotificationBell
                 notifications={notifications}
                 onDismiss={handleDismissNotification}
@@ -182,7 +187,7 @@ export default function ProjectDashboard() {
         </header>
 
         {/* Dashboard Content */}
-        <main className="flex-1 overflow-y-auto bg-gradient-to-b from-gray-900 to-gray-800 p-6">
+        <main className="flex-1 overflow-y-auto bg-gradient-to-b from-gray-900 to-gray-800 p-4 md:p-6">
           {isLoading ? (
             <div className="flex justify-center items-center h-64">
               <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500" />

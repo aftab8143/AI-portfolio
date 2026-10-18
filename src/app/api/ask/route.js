@@ -2,11 +2,14 @@
 
 import OpenAI from "openai";
 
-// Initialize OpenAI client using OpenRouter
-const openai = new OpenAI({
-  baseURL: "https://openrouter.ai/api/v1",
-  apiKey: process.env.OPEN_ROUTER_API_KEY,
-});
+// Initialized lazily inside the handler so a missing key doesn't break
+// module load (and `next build`'s page-data collection) when unset.
+function getClient() {
+  return new OpenAI({
+    baseURL: "https://openrouter.ai/api/v1",
+    apiKey: process.env.OPEN_ROUTER_API_KEY,
+  });
+}
 
 // Structured data about Aftab, his portfolio, and personal details
 const contentMap = {
@@ -160,47 +163,16 @@ const contentMap = {
     },
   },
 
-  // personal: {
-  //   girlfriend: "Ballu",
-  //   nicknames: {
-  //     toHer: ["duldul", "albalahi", "lelhi", "paglu"],
-  //     fromHer: ["soni", "loli-poli"],
-  //   },
-  //   favorites: {
-  //     hers: ["sushi", "momo", "dhuska", "kosa-chicken"],
-  //     hobbies: ["bars", "pubs", "restaurants"],
-  //   },
-  //   notes:
-  //     "Ballu is lovingly called a 'kumbhkaran' because she's too lazy even to order from Blinkit.",
-  // },
 };
-
-// Helper: Build system instruction guiding assistant tone & content
-function buildSystemInstruction(includePersonal = false) {
-  let base =
-    `You are Aftab Alam's personal assistant, EVA (Aftab's Intelligent Virtual Assistant). ` +
-    `You have access to JSON data blocks labeled 'Aftab', 'website', and 'personal'. ` +
-    `When answering, decide which block(s) are relevant to the user's question and use only that information. ` +
-    `Do not mention irrelevant data. Respond naturally as if you know him.`;
-  // if (includePersonal) {
-  //   base += `\nThe user is Ballu, so you may include affectionate personal details.`;
-  // }
-  return base;
-}
 
 // API handler
 export async function POST(req) {
   try {
     const { question } = await req.json();
-    // const isBallu = question.includes("Hi,EVA I am Ballu");
+    const openai = getClient();
 
     // Always provide all data blocks; let the model pick
     const dataPayload = { ...contentMap };
-
-    // const systemMessage = {
-    //   role: "system",
-    //   content: buildSystemInstruction(isBallu),
-    // };
 
     const userMessage = {
       role: "user",

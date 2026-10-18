@@ -24,7 +24,7 @@ export const ChatBotIcon = ({ size = 64, color = "#3B82F6" }) => (
         rx="12"
         stroke="url(#borderGradient)"
         strokeWidth="2"
-        className="transition-all group-hover:stroke-cyan-400 group-hover:drop-shadow-[0_0_6px_cyan]"
+        className="transition-all group-hover:[stroke:var(--accent)] group-hover:drop-shadow-[0_0_6px_rgba(99,102,241,0.7)]"
       />
 
       {/* Robot head - positioned lower to make room for speech bubble */}

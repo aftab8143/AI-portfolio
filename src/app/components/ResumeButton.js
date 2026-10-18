@@ -7,13 +7,13 @@ export default function ResumeButton() {
   const pathname = usePathname();
   if (pathname === "/") {
     return (
-      <div className="fixed top-4 right-0 z-[51] flex flex-col items-center group">
+      <div className="fixed top-20 right-4 z-[51] flex flex-col items-center group">
         <motion.a
           href="/aftab-resume.pdf"
           download
           whileHover={{ scale: 1.2 }}
           whileTap={{ scale: 0.95 }}
-          className="text-cyan hover:text-blue transition-all duration-300"
+          className="transition-all duration-300 [color:var(--accent)] hover:[color:var(--btn-hover)]"
           aria-label="Download Resume"
         >
           {/* Animated Download Icon */}
@@ -27,7 +27,6 @@ export default function ResumeButton() {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="text-cyan"
           >
             <motion.path
               d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
@@ -53,7 +52,7 @@ export default function ResumeButton() {
           </svg>
         </motion.a>
 
-        <span className="mt-2 px-2 py-1 text-xs bg-slate-800 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+        <span className="mt-2 px-2 py-1 text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-[var(--surface)] border border-[var(--line)] [color:var(--text-light)]">
           Download Resume
         </span>
       </div>

@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import ResumeButton from "./ResumeButton";
 import AssistantWrapper from "./AssistantWrapper";
 import BackButton from "./common/BackButton";
+import SiteEffects from "./fx/SiteEffects";
 
 export default function LayoutWrapper({ children }) {
   const pathname = usePathname();
@@ -14,37 +13,32 @@ export default function LayoutWrapper({ children }) {
   // Routes that should render full screen without layout elements
   const fullScreenRoutes = [
     "/archery",
-    "/test",
     "/projects/playground/project-dashboard",
   ];
 
   const isFullScreen = fullScreenRoutes.includes(pathname);
+  const isHome = pathname === "/";
 
-  // Theme logic based on route
-  useEffect(() => {
-    const root = document.documentElement;
-    root.classList.remove("test-theme");
-
-    if (
-      pathname.startsWith("/test") ||
-      pathname === "/playground/project-dashboard"
-    ) {
-      root.classList.add("test-theme");
-    }
-  }, [pathname]);
+  if (isFullScreen) {
+    return <main className="h-screen w-screen overflow-hidden">{children}</main>;
+  }
 
   return (
     <>
-      {!isFullScreen && <Navbar />}
-      {!isFullScreen && <BackButton label="Back" />}
-      {!isFullScreen && <AssistantWrapper />}
-      {!isFullScreen && <ResumeButton />}
-      <main
-        className={isFullScreen ? "h-screen w-screen overflow-hidden" : "pt-20"}
-      >
+      {isHome && (
+        <div className="intro-cover" aria-hidden="true">
+          <span className="intro-mark">AA</span>
+        </div>
+      )}
+      <SiteEffects />
+      <Navbar />
+      <BackButton label="Back" />
+      <AssistantWrapper />
+      {/* The home hero sits under the floating nav; other pages clear it */}
+      <main id="main" className={isHome ? "" : "pt-[calc(var(--nav-h)+48px)]"}>
         {children}
       </main>
-      {!isFullScreen && <Footer />}
+      <Footer />
     </>
   );
 }

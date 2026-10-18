@@ -36,7 +36,7 @@ export default function ProjectCard({
   return (
     <Link href={`/projects/${slug}`}>
       <motion.div
-        className="group bg-slate-800 rounded-xl overflow-hidden shadow-md transition hover:shadow-lg hover:bg-slate-700 cursor-pointer flex flex-col h-full"
+        className="project-card group cursor-pointer"
         whileHover={{ scale: 1.02 }}
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -46,8 +46,7 @@ export default function ProjectCard({
         onMouseLeave={() => setHovered(false)}
       >
         {/* Top Preview */}
-        <div className="relative w-full aspect-[4/3] bg-slate-900 flex items-center justify-center rounded-t-xl overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-800 via-slate-900 to-slate-800 z-0" />
+        <div className="project-image-wrapper flex items-center justify-center">
           {liveComponent ? (
             <div className="w-full h-full relative z-10">{liveComponent}</div>
           ) : (
@@ -63,25 +62,31 @@ export default function ProjectCard({
 
         {/* Card Body */}
         <div className="flex flex-col flex-1 px-4 py-5">
-          <h3 className="text-white text-lg font-semibold mb-1 leading-tight line-clamp-1">
+          <h3
+            className="text-lg font-semibold mb-1 leading-tight line-clamp-1"
+            style={{ color: "var(--text-light)" }}
+          >
             {title}
           </h3>
-          <p className="text-slate-400 text-sm mb-3 line-clamp-3">
+          <p
+            className="text-sm mb-3 line-clamp-3"
+            style={{ color: "var(--text-muted)" }}
+          >
             {description}
           </p>
 
           <div className="flex flex-wrap gap-2 mt-auto">
             {tags.map((tag, i) => (
-              <span
-                key={i}
-                className="bg-slate-700 text-white text-xs px-3 py-1 rounded-full"
-              >
+              <span key={i} className="tag text-xs">
                 {tag}
               </span>
             ))}
           </div>
 
-          <div className="mt-4 text-pink-400 flex items-center gap-1 text-sm font-medium group-hover:underline">
+          <div
+            className="mt-4 flex items-center gap-1 text-sm font-medium group-hover:underline"
+            style={{ color: "var(--accent)" }}
+          >
             View Project <ExternalLink size={14} />
           </div>
         </div>

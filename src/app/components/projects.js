@@ -20,8 +20,18 @@ export default function Projects() {
   }, [shouldLand]);
 
   return (
-    <section id="project-section" className="relative min-h-screen pt-12">
-      {/* 🚀 Landing rocket animation */}
+    <section
+      id="project-section"
+      className="relative min-h-screen pt-12 px-4 md:px-8 max-w-6xl mx-auto"
+    >
+      <div className="text-center mb-10">
+        <h1 className="text-3xl md:text-4xl font-bold mb-3">Projects</h1>
+        <p style={{ color: "var(--text-muted)" }} className="max-w-2xl mx-auto">
+          A selection of production apps I&apos;ve built for clients — web,
+          mobile, and everything in between.
+        </p>
+      </div>
+      {/* Landing rocket animation */}
       {showLandingRocket && (
         <motion.div
           initial={{ y: "-100vh", opacity: 0 }}
@@ -44,7 +54,7 @@ export default function Projects() {
               {/* 🚀 Rocket */}
               <RocketIcon
                 size={32}
-                className="text-white drop-shadow-[0_0_20px_rgba(0,247,255,0.4)] z-10"
+                className="drop-shadow-[0_0_20px_rgba(99,102,241,0.5)] z-10 [color:var(--text-light)]"
               />
 
               {/* 🔥 Thrust Flame */}

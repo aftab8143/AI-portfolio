@@ -25,66 +25,11 @@ export async function GET(req, { params }) {
   }
 }
 
-// UPDATE a blog by slug
-export async function PUT(req, { params }) {
-  try {
-    const { slug: id } = params;
-    const body = await req.json();
-    const { title, content } = body;
-
-    if (!title || !content) {
-      return NextResponse.json({ error: "Missing fields" }, { status: 400 });
-    }
-
-    await connectDB();
-
-    const summary = content.replace(/<[^>]*>?/gm, "").slice(0, 100) + "...";
-    const updatedSlug = title.toLowerCase().replace(/\s+/g, "-");
-
-    const blog = await Blog.findByIdAndUpdate(
-      id,
-      {
-        title,
-        content,
-        summary,
-        slug: updatedSlug,
-        date: new Date().toLocaleDateString(),
-      },
-      { new: true }
-    );
-
-    if (!blog) {
-      return NextResponse.json({ error: "Blog not found" }, { status: 404 });
-    }
-
-    return NextResponse.json({ success: true, blog }, { status: 200 });
-  } catch (err) {
-    console.error("PUT error:", err);
-    return NextResponse.json(
-      { error: "Failed to update blog" },
-      { status: 500 }
-    );
-  }
+// Blog authoring is disabled — there is no auth system wired up yet.
+export async function PUT() {
+  return NextResponse.json({ error: "Not available" }, { status: 403 });
 }
 
-// DELETE a blog by slug
-export async function DELETE(req, { params }) {
-  try {
-    const { slug: id } = params;
-    await connectDB();
-
-    const deleted = await Blog.findByIdAndDelete(id);
-
-    if (!deleted) {
-      return NextResponse.json({ error: "Blog not found" }, { status: 404 });
-    }
-
-    return NextResponse.json({ success: true }, { status: 200 });
-  } catch (err) {
-    console.error("DELETE error:", err);
-    return NextResponse.json(
-      { error: "Failed to delete blog" },
-      { status: 500 }
-    );
-  }
+export async function DELETE() {
+  return NextResponse.json({ error: "Not available" }, { status: 403 });
 }

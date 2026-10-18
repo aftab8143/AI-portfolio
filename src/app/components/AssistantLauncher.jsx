@@ -34,7 +34,7 @@ export default function AssistantLauncher() {
     initial={{ opacity: 0, x: 20 }}
     animate={{ opacity: 1, x: 0 }}
     exit={{ opacity: 0, x: 20 }}
-    className="relative bg-black text-white text-sm rounded px-3 py-2 shadow-lg max-w-xs"
+    className="relative bg-black text-white text-sm rounded px-3 py-2 shadow-lg max-w-xs max-sm:hidden"
   >
     Ask EVA anything<br />
     about Aftab’s portfolio

@@ -1,15 +1,10 @@
-"use client";
-
 import {
   SiJavascript,
   SiTypescript,
-  SiPython,
   SiReact,
   SiNextdotjs,
-  SiAngular,
   SiNodedotjs,
   SiGraphql,
-  SiElectron,
   SiTailwindcss,
   SiHtml5,
   SiCss3,
@@ -21,128 +16,115 @@ import {
   SiFirebase,
   SiGit,
   SiJest,
-  SiDocker,
   SiGithubactions,
   SiCypress,
 } from "react-icons/si";
-import { motion } from "framer-motion";
-import { BrainCogIcon, Sparkles } from "lucide-react";
+import { Layers, Server, Cloud, Database, Code2 } from "lucide-react";
 
 const skillsByCategory = [
   {
     title: "Frontend",
+    icon: Layers,
+    blurb: "Fast, accessible interfaces for web and mobile.",
     items: [
-      { icon: <SiReact color="#61dafb" />, label: "React / Native" },
-      { icon: <SiNextdotjs color="white" />, label: "Next.js" },
-      // { icon: <SiAngular color="#dd0031" />, label: "Angular" },
-      // { icon: <SiElectron color="#47848f" />, label: "Electron.js" },
-      { icon: <SiTailwindcss color="#38bdf8" />, label: "Tailwind CSS" },
-      { icon: <SiHtml5 color="#e34f26" />, label: "HTML" },
-      { icon: <SiCss3 color="#1572b6" />, label: "CSS" },
+      { icon: SiReact, label: "React / Native" },
+      { icon: SiNextdotjs, label: "Next.js" },
+      { icon: SiTailwindcss, label: "Tailwind CSS" },
+      { icon: SiHtml5, label: "HTML" },
+      { icon: SiCss3, label: "CSS" },
     ],
   },
   {
     title: "Backend",
+    icon: Server,
+    blurb: "APIs, auth and real-time services built to scale.",
     items: [
-      { icon: <SiNodedotjs color="#339933" />, label: "Node.js" },
-      { icon: <SiGraphql color="#e535ab" />, label: "GraphQL" },
+      { icon: SiNodedotjs, label: "Node.js" },
+      { icon: SiGraphql, label: "GraphQL" },
     ],
   },
-  // {
-  //   title: "AI / ML",
-  //   items: [
-  //     {
-  //       icon: <Sparkles size={20} color="#a78bfa" />,
-  //       label: "LLMs (OpenAI, Claude)",
-  //     },
-  //     {
-  //       icon: <Sparkles size={20} color="#f472b6" />,
-  //       label: "Langchain / Agents",
-  //     },
-  //   ],
-  // },
   {
     title: "DevOps & Infra",
+    icon: Cloud,
+    blurb: "Pipelines and cloud deploys that just work.",
     items: [
-      { icon: <SiAmazon color="#ff9900" />, label: "AWS" },
-      { icon: <SiGooglecloud color="#4285f4" />, label: "GCP" },
-      // { icon: <SiDocker color="#0db7ed" />, label: "Docker" },
-      { icon: <SiGithubactions color="#2088ff" />, label: "GitHub Actions" },
-      { icon: <SiCypress color="#58c4c4" />, label: "CI/CD / Cypress" },
+      { icon: SiAmazon, label: "AWS" },
+      { icon: SiGooglecloud, label: "GCP" },
+      { icon: SiGithubactions, label: "GitHub Actions" },
+      { icon: SiCypress, label: "CI/CD / Cypress" },
     ],
   },
   {
     title: "Databases & Tools",
+    icon: Database,
+    blurb: "The right store for the data, and the tooling around it.",
     items: [
-      { icon: <SiMongodb color="#47a248" />, label: "MongoDB" },
-      { icon: <SiMysql color="#00758f" />, label: "MySQL" },
-      { icon: <SiPostgresql color="#336791" />, label: "PostgreSQL" },
-      { icon: <SiFirebase color="#ffca28" />, label: "Firebase" },
-      { icon: <SiGit color="#f05032" />, label: "Git / GitHub" },
-      { icon: <SiJest color="#c21325" />, label: "Jest / Postman" },
+      { icon: SiMongodb, label: "MongoDB" },
+      { icon: SiMysql, label: "MySQL" },
+      { icon: SiPostgresql, label: "PostgreSQL" },
+      { icon: SiFirebase, label: "Firebase" },
+      { icon: SiGit, label: "Git / GitHub" },
+      { icon: SiJest, label: "Jest / Postman" },
     ],
   },
   {
     title: "Languages",
+    icon: Code2,
+    blurb: "Typed where it counts.",
     items: [
-      { icon: <SiJavascript color="#f7df1e" />, label: "JavaScript" },
-      { icon: <SiTypescript color="#3178c6" />, label: "TypeScript" },
-      // { icon: <SiPython color="#3776ab" />, label: "Python" },
+      { icon: SiJavascript, label: "JavaScript" },
+      { icon: SiTypescript, label: "TypeScript" },
     ],
   },
 ];
 
-function Skills() {
+export default function Skills() {
   return (
-    <section className="relative z-10 py-16 sm:py-24 px-4 sm:px-6 text-white overflow-hidden">
-      {/* Floating Blobs */}
-      <div className="absolute top-[-80px] left-[-80px] w-[250px] h-[250px] bg-pink-400/20 rounded-full blur-[120px] animate-pulse pointer-events-none z-0" />
-      <div className="absolute bottom-[-80px] right-[-80px] w-[300px] h-[300px] bg-cyan-400/20 rounded-full blur-[120px] animate-pulse pointer-events-none z-0" />
+    <section data-loc="skills" id="skills" className="section scroll-mt-24">
+      <div className="wrap">
+        <p className="eyebrow" data-reveal>
+          Technical stack
+        </p>
+        <h2 className="h2 mt-4" data-reveal style={{ "--i": 1 }}>
+          Modern stack.
+          <br />
+          Production-proven.
+        </h2>
 
-      <motion.h2
-        className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-14 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 z-10 relative"
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
-        viewport={{ once: true }}
-      >
-        <BrainCogIcon size={32} color="#f472b6" />
-        <span>My Technical Stack</span>
-      </motion.h2>
-
-      {/* Skills Grid */}
-      <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3 relative z-10">
-        {skillsByCategory.map((category, i) => (
-          <motion.div
-            key={category.title}
-            className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-2xl shadow-xl hover:shadow-[0_0_30px_#ec4899]/20 transition duration-300"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.1, duration: 0.6 }}
-          >
-            <h3 className="text-lg font-semibold text-pink-400 mb-4 text-center">
-              {category.title}
-            </h3>
-            <div className="flex flex-wrap gap-4 align-center justify-center">
-              {category.items.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="group flex flex-col items-center text-sm text-slate-300 hover:text-white transition duration-200"
-                  title={item.label}
+        <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {skillsByCategory.map((cat, i) => {
+            const Icon = cat.icon;
+            return (
+              <div key={cat.title} className="glass spot p-7" data-reveal style={{ "--i": i }}>
+                <span
+                  className="grid h-11 w-11 place-items-center rounded-xl border border-line text-accent-2"
+                  style={{ background: "color-mix(in srgb, var(--accent) 12%, transparent)" }}
                 >
-                  <div className="text-3xl group-hover:scale-110 transition-transform glow-icon">
-                    {item.icon}
-                  </div>
-                  <span className="mt-1 text-xs text-center">{item.label}</span>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        ))}
+                  <Icon size={20} />
+                </span>
+                <h3 className="h3 mt-5">{cat.title}</h3>
+                <p className="muted mt-2 text-[15px]">{cat.blurb}</p>
+                <ul className="mt-5 flex flex-wrap gap-2">
+                  {cat.items.map(({ icon: ItemIcon, label }) => (
+                    <li key={label} className="chip">
+                      <ItemIcon size={13} className="text-accent-2" />
+                      {label}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
+
+          <div className="glass flex flex-col justify-center p-7" data-reveal style={{ "--i": 5 }}>
+            <p className="eyebrow">Also working with</p>
+            <p className="h3 mt-4">LLMs, agents & RAG — OpenAI and Claude built into real products.</p>
+            <a href="/demos" className="btn btn-glass mt-6 self-start">
+              See AI demos →
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   );
 }
-
-export default Skills;

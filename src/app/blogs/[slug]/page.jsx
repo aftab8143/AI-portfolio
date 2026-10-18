@@ -133,7 +133,7 @@ export default function BlogDetailPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <div className="w-12 h-12 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin" />
+        <div className="w-12 h-12 border-4 rounded-full animate-spin [border-color:transparent_var(--accent)_var(--accent)_var(--accent)]" />
       </div>
     );
   }
@@ -142,10 +142,10 @@ export default function BlogDetailPage() {
 
   if (!blog) {
     return (
-      <div className="text-center py-20 text-slate-300">
+      <div className="text-center py-20 [color:var(--text-muted)]">
         Blog not found.
         <br />
-        <Link href="/blogs" className="text-cyan-400 underline">
+        <Link href="/blogs" className="[color:var(--accent)] underline">
           ← Back to Blogs
         </Link>
       </div>
@@ -153,14 +153,14 @@ export default function BlogDetailPage() {
   }
 
   return (
-    <div className="min-h-screen px-4 py-10 max-w-6xl mx-auto text-white">
+    <div className="min-h-screen px-4 py-10 max-w-6xl mx-auto [color:var(--text-light)]">
       <div className="mt-10">
-        <Link href="/blogs" className="text-cyan-400 underline">
+        <Link href="/blogs" className="[color:var(--accent)] underline">
           ← Back to Blogs
         </Link>
       </div>
       <h1 className="text-4xl font-bold mb-2">{blog.title}</h1>
-      <p className="text-sm text-slate-400 mb-6">{blog.date}</p>
+      <p className="text-sm mb-6 [color:var(--text-muted)]">{blog.date}</p>
 
       <div className="bg-white text-black rounded-xl p-4 pt-1 shadow-md mb-8">
         <article
@@ -179,7 +179,7 @@ export default function BlogDetailPage() {
       </div>
 
       {/* Comments Section */}
-      <div className="bg-slate-800 text-gray-100 rounded-xl p-8 shadow-md mb-8">
+      <div className="rounded-xl p-8 shadow-md mb-8 border border-[var(--line)] bg-[var(--surface)] [color:var(--text-light)]">
         <h2 className="text-2xl font-bold mb-6">
           Comments ({comments.length})
         </h2>
@@ -188,21 +188,21 @@ export default function BlogDetailPage() {
             {comments.map((comment) => (
               <div
                 key={comment._id}
-                className="border-b border-gray-300 pb-6 last:border-0"
+                className="border-b border-[var(--line)] pb-6 last:border-0"
               >
                 <div className="flex items-center mb-2">
-                  <h3 className="font-semibold text-base text-gray-300 text-sm">
+                  <h3 className="font-semibold text-base [color:var(--text-muted)] text-sm">
                     {comment.name}
                   </h3>
-                  <span className="text-gray-300 text-sm ml-3 text-xs">
+                  <span className="[color:var(--text-muted)] text-sm ml-3 text-xs">
                     {new Date(comment.createdAt).toLocaleDateString()}
                   </span>
                 </div>
-                <p className="text-gray-300 leading-relaxed text-sm">
+                <p className="[color:var(--text-muted)] leading-relaxed text-sm">
                   {comment.content}
                 </p>
                 <button
-                  className="text-cyan-400 text-xs mt-2 hover:underline"
+                  className="[color:var(--accent)] text-xs mt-2 hover:underline"
                   onClick={() => handleReply(comment._id)}
                 >
                   Reply
@@ -213,17 +213,17 @@ export default function BlogDetailPage() {
                     {comment.replies.map((reply, idx) => (
                       <div
                         key={reply._id || idx}
-                        className="bg-slate-700 rounded-lg p-3"
+                        className="bg-[var(--surface-hover)] rounded-lg p-3"
                       >
                         <div className="flex items-center mb-1">
-                          <span className="font-semibold text-sm text-gray-200">
+                          <span className="font-semibold text-sm [color:var(--text-light)]">
                             {reply.name}
                           </span>
-                          <span className="text-gray-400 text-xs ml-2">
+                          <span className="text-xs ml-2 [color:var(--text-muted)]">
                             {new Date(reply.createdAt).toLocaleDateString()}
                           </span>
                         </div>
-                        <p className="text-gray-200 text-sm">{reply.content}</p>
+                        <p className="[color:var(--text-light)] text-sm">{reply.content}</p>
                       </div>
                     ))}
                   </div>
@@ -231,7 +231,7 @@ export default function BlogDetailPage() {
                 {/* Reply Form */}
                 {replyingTo === comment._id && (
                   <form
-                    className="mt-4 ml-6 bg-slate-700 rounded-lg p-4 space-y-2"
+                    className="mt-4 ml-6 bg-[var(--surface-hover)] rounded-lg p-4 space-y-2"
                     onSubmit={(e) => handleSubmitReply(e, comment._id)}
                   >
                     <div className="flex gap-2">
@@ -239,7 +239,7 @@ export default function BlogDetailPage() {
                         type="text"
                         required
                         placeholder="Your name"
-                        className="px-2 py-1 rounded bg-slate-800 text-white border border-slate-600 text-sm"
+                        className="px-2 py-1 rounded bg-[var(--bg-dark)] border border-[var(--line)] text-sm [color:var(--text-light)]"
                         value={replyName}
                         onChange={(e) => setReplyName(e.target.value)}
                       />
@@ -247,7 +247,7 @@ export default function BlogDetailPage() {
                         type="email"
                         required
                         placeholder="your@email.com"
-                        className="px-2 py-1 rounded bg-slate-800 text-white border border-slate-600 text-sm"
+                        className="px-2 py-1 rounded bg-[var(--bg-dark)] border border-[var(--line)] text-sm [color:var(--text-light)]"
                         value={replyEmail}
                         onChange={(e) => setReplyEmail(e.target.value)}
                       />
@@ -256,7 +256,7 @@ export default function BlogDetailPage() {
                       required
                       rows="2"
                       placeholder="Your reply..."
-                      className="w-full px-2 py-1 rounded bg-slate-800 text-white border border-slate-600 text-sm"
+                      className="w-full px-2 py-1 rounded bg-[var(--bg-dark)] border border-[var(--line)] text-sm [color:var(--text-light)]"
                       value={replyContent}
                       onChange={(e) => setReplyContent(e.target.value)}
                     />
@@ -264,13 +264,13 @@ export default function BlogDetailPage() {
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="bg-cyan-400 text-slate-900 px-3 py-1 rounded font-bold text-sm hover:bg-cyan-300 disabled:opacity-60"
+                        className="px-3 py-1 rounded font-bold text-sm disabled:opacity-60 text-white [background:var(--accent)] hover:[background:var(--btn-hover)]"
                       >
                         {isSubmitting ? "Replying..." : "Post Reply"}
                       </button>
                       <button
                         type="button"
-                        className="text-gray-300 text-sm"
+                        className="[color:var(--text-muted)] text-sm"
                         onClick={() => setReplyingTo(null)}
                       >
                         Cancel
@@ -282,14 +282,14 @@ export default function BlogDetailPage() {
             ))}
           </div>
         ) : (
-          <p className="text-gray-100 italic">
+          <p className="italic [color:var(--text-muted)]">
             No comments yet. Be the first to comment!
           </p>
         )}
       </div>
 
       {/* Comment Form */}
-      <div className="bg-slate-800 rounded-xl p-8 shadow-lg border border-slate-700">
+      <div className="rounded-xl p-8 shadow-lg border border-[var(--line)] bg-[var(--surface)]">
         <h2 className="text-2xl font-bold mb-6 text-[var(--accent)]">
           Join the Discussion
         </h2>
@@ -298,7 +298,7 @@ export default function BlogDetailPage() {
             <div>
               <label
                 htmlFor="name"
-                className="block text-sm font-medium text-slate-300 mb-1"
+                className="block text-sm font-medium mb-1 [color:var(--text-muted)]"
               >
                 Name*
               </label>
@@ -307,7 +307,7 @@ export default function BlogDetailPage() {
                 id="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-4 py-2 bg-slate-900 text-slate-100 border border-slate-700 rounded-lg focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent placeholder-slate-500"
+                className="w-full px-4 py-2 bg-[var(--bg-dark)] border border-[var(--line)] rounded-lg focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent placeholder:text-[var(--text-muted)] [color:var(--text-light)]"
                 required
                 placeholder="Your name"
               />
@@ -315,7 +315,7 @@ export default function BlogDetailPage() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-slate-300 mb-1"
+                className="block text-sm font-medium mb-1 [color:var(--text-muted)]"
               >
                 Email* (private)
               </label>
@@ -324,7 +324,7 @@ export default function BlogDetailPage() {
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-2 bg-slate-900 text-slate-100 border border-slate-700 rounded-lg focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent placeholder-slate-500"
+                className="w-full px-4 py-2 bg-[var(--bg-dark)] border border-[var(--line)] rounded-lg focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent placeholder:text-[var(--text-muted)] [color:var(--text-light)]"
                 required
                 placeholder="your@email.com"
               />
@@ -333,7 +333,7 @@ export default function BlogDetailPage() {
           <div>
             <label
               htmlFor="comment"
-              className="block text-sm font-medium text-slate-300 mb-1"
+              className="block text-sm font-medium mb-1 [color:var(--text-muted)]"
             >
               Your Thoughts*
             </label>
@@ -342,7 +342,7 @@ export default function BlogDetailPage() {
               rows="4"
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
-              className="w-full px-4 py-2 bg-slate-900 text-slate-100 border border-slate-700 rounded-lg focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent placeholder-slate-500"
+              className="w-full px-4 py-2 bg-[var(--bg-dark)] border border-[var(--line)] rounded-lg focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent placeholder:text-[var(--text-muted)] [color:var(--text-light)]"
               required
               placeholder="Share your insights..."
             ></textarea>
@@ -350,7 +350,7 @@ export default function BlogDetailPage() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="px-6 py-3 bg-[var(--accent)] text-slate-900 font-bold rounded-lg hover:bg-[var(--btn-hover)] transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--accent)] disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            className="px-6 py-3 bg-[var(--accent)] text-white font-bold rounded-lg hover:bg-[var(--btn-hover)] transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--accent)] disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
             {isSubmitting ? (
               <>

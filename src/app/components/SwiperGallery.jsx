@@ -7,7 +7,7 @@ import "swiper/css/pagination";
 
 export default function SwiperGallery({ images }) {
   return (
-    <div className="w-full mx-auto bg-slate-800 rounded-xl overflow-hidden p-4">
+    <div className="w-full mx-auto rounded-xl overflow-hidden p-4 border border-[var(--line)] bg-[var(--surface)]">
       <Swiper
         modules={[Autoplay, Pagination]}
         autoplay={{ delay: 6500, disableOnInteraction: true }}
@@ -21,7 +21,7 @@ export default function SwiperGallery({ images }) {
           return (
             <SwiperSlide
               key={i}
-              className="flex justify-center items-center bg-slate-800"
+              className="flex justify-center items-center bg-[var(--surface)]"
             >
               <div
                 className={`relative w-full ${
@@ -36,7 +36,7 @@ export default function SwiperGallery({ images }) {
                   fill
                   sizes="100%"
                   className="object-contain"
-                  style={{ backgroundColor: "#1e293b", objectFit: "contain" }}
+                  style={{ backgroundColor: "var(--surface)", objectFit: "contain" }}
                 />
               </div>
             </SwiperSlide>
