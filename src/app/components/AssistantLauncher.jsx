@@ -4,9 +4,13 @@ import { useState, useEffect } from "react";
 import Assistant from "./assitant";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChatBotIcon } from "./ChatIcon";
+import { useEvaStore } from "@/app/store/useEvaStore";
 
 export default function AssistantLauncher() {
-  const [open, setOpen] = useState(false);
+  // Open state lives in the store so the conversation and panel survive page changes
+  const open = useEvaStore((s) => s.open);
+  const setOpen = useEvaStore((s) => s.setOpen);
+  const toggle = useEvaStore((s) => s.toggle);
   const [showInfo, setShowInfo] = useState(false);
 
   useEffect(() => {
@@ -23,14 +27,14 @@ export default function AssistantLauncher() {
   return (
     <>
       <motion.div
-        className="fixed bottom-4 right-4 z-[999] flex items-center gap-2"
+        className={`fixed bottom-4 right-4 z-[999] flex items-center gap-2 ${open ? "max-sm:hidden" : ""}`}
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.4, duration: 0.4 }}
       >
         {/* Tooltip */}
         <AnimatePresence>
-          {showInfo && (
+          {showInfo && !open && (
             <motion.div
               initial={{ opacity: 0, x: 16 }}
               animate={{ opacity: 1, x: 0 }}
@@ -49,10 +53,11 @@ export default function AssistantLauncher() {
         {/* Launcher */}
         <motion.button
           type="button"
-          onClick={() => setOpen(true)}
+          onClick={toggle}
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.94 }}
-          aria-label="Chat with EVA, Aftab's portfolio assistant"
+          aria-label={open ? "Close chat with EVA" : "Chat with EVA, Aftab's portfolio assistant"}
+          aria-expanded={open}
           data-cursor="Chat"
           className="eva-launcher relative grid h-[60px] w-[60px] place-items-center rounded-full"
         >

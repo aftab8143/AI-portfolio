@@ -820,3 +820,74 @@ html {
     opacity: 0;
   }
 }
+
+/* ---------- EVA chat panel ---------- */
+.eva-panel {
+  border: 1px solid var(--line);
+  box-shadow: 0 30px 80px -24px rgba(0, 0, 0, 0.7), 0 0 0 1px color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+@media (max-width: 639px) {
+  .eva-panel {
+    border: 0;
+  }
+}
+
+.eva-bubble-bot {
+  border: 1px solid var(--line);
+  background: var(--bg-2);
+  color: var(--text-mid);
+}
+
+.eva-bubble-user {
+  background: var(--grad);
+  color: var(--on-accent);
+  font-weight: 500;
+}
+
+.eva-md > * + * {
+  margin-top: 0.6em;
+}
+
+.eva-md :where(p, li) {
+  margin: 0;
+  color: var(--text-mid);
+}
+
+.eva-md :where(strong) {
+  color: var(--text-hi);
+}
+
+.eva-md :where(ul, ol) {
+  margin: 0.4em 0 0;
+  padding-left: 1.2em;
+}
+
+.eva-md :where(ul) {
+  list-style: disc;
+}
+
+.eva-md :where(ol) {
+  list-style: decimal;
+}
+
+.eva-md :where(li)::marker {
+  color: var(--accent-2);
+}
+
+.eva-md :where(a) {
+  color: var(--accent-2);
+}
+
+.eva-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--accent-2);
+  animation: eva-dot 1s ease-in-out infinite;
+}
+
+@keyframes eva-dot {
+  0%, 80%, 100% { opacity: 0.25; transform: translateY(0); }
+  40% { opacity: 1; transform: translateY(-3px); }
+}

@@ -16,6 +16,7 @@ const projects = [
     contributions: [
       "Working on the JIADA Unified IT System as a Software Engineer at JSAC.",
       "Applicant dashboard with region-wise plot availability and a land availability map.",
+      "Own end-to-end delivery, from development through production deployment and maintenance on a restricted government network.",
       "Next up: a mobile app for on-ground land surveys.",
     ],
     sections: [
@@ -33,6 +34,11 @@ const projects = [
       {
         title: "Plot Discovery",
         items: ["Plot Searching Tool", "Land Bank", "Region-wise Availability"],
+      },
+      {
+        title: "Deployment & Operations",
+        text: "Production releases and maintenance handled end to end on a restricted government network, where CI/CD and containers aren't available.",
+        items: ["Application server", "Document management (DMS) server", "Database server"],
       },
       {
         title: "Land Survey Mobile App",

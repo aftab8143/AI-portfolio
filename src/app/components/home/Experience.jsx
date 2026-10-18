@@ -9,6 +9,7 @@ const experience = [
       "One portal for plot search, land bank and land allotment across 160 industrial areas",
       "Online investor services: building plan approval, lease transfer, unit certificates",
       "Applicant dashboard with region-wise plot availability and a land map",
+      "Own end-to-end delivery: production deployment and maintenance across app, DMS and database servers on a restricted government network",
       "Next: a land survey mobile app for field teams",
     ],
     stack: [],

@@ -2,6 +2,7 @@
 
 import OpenAI from "openai";
 import { projects } from "../../../../data";
+import { rateLimit, clientIp, MINUTE, DAY } from "@/lib/rateLimit";
 
 // Initialized lazily inside the handler so a missing key doesn't break
 // module load (and `next build`'s page-data collection) when unset.
@@ -52,6 +53,7 @@ const contentMap = {
         responsibilities: [
           "Working on the JIADA Unified IT System for the Jharkhand Industrial Area Development Authority — one portal for investors to search plots, apply for land allotment and approvals, and track applications across 160 industrial areas.",
           "Applicant dashboard with region-wise plot availability and an interactive land availability map.",
+          "Own end-to-end delivery of the platform — from development through production deployment and maintenance across a multi-server setup (application, document management and database servers) on a restricted government network.",
           "Next: a land survey mobile app for field teams.",
         ],
       },
@@ -133,30 +135,55 @@ const SYSTEM_MESSAGE = {
     "You are EVA, the assistant on Aftab Alam's portfolio website. Answer visitors' questions about Aftab using only the data blocks provided. Be friendly and concise (2-4 sentences unless asked for more). If something isn't in the data, say you don't know and suggest contacting Aftab at aftab8143@gmail.com.",
 };
 
+// Only well-formed recent turns are passed on; anything else is dropped
+function cleanHistory(history) {
+  if (!Array.isArray(history)) return [];
+  return history
+    .filter((m) => m && (m.role === "user" || m.role === "assistant") && typeof m.content === "string")
+    .slice(-10)
+    .map((m) => ({ role: m.role, content: m.content.slice(0, 2000) }));
+}
+
 // API handler
 export async function POST(req) {
+  // Per visitor: 20 questions per 10 minutes, 100 per day (protects the AI quota)
+  const limited = rateLimit(`ask:${clientIp(req)}`, [
+    { limit: 20, windowMs: 10 * MINUTE },
+    { limit: 100, windowMs: DAY },
+  ]);
+  if (!limited.ok) {
+    return Response.json(
+      { error: "You've asked a lot of questions! Please try again in a little while." },
+      { status: 429, headers: { "Retry-After": String(limited.retryAfter) } }
+    );
+  }
+
   try {
-    const { question } = await req.json();
+    let body;
+    try {
+      body = await req.json();
+    } catch {
+      return Response.json({ error: "Invalid request" }, { status: 400 });
+    }
+    const question = typeof body.question === "string" ? body.question.trim().slice(0, 500) : "";
+    if (!question) return Response.json({ error: "Please type a question." }, { status: 400 });
+
     const openai = getClient();
 
-    // Always provide all data blocks; let the model pick
-    const dataPayload = { ...contentMap };
-
-    const userMessage = {
-      role: "user",
-      content: `Here are all data blocks:\n---\n${JSON.stringify(
-        dataPayload,
-        null,
-        2
-      )}\n---\nQ: ${question}`,
+    // Profile data goes in the system message, then the conversation so far,
+    // then the new question — so follow-ups ("which of those used AI?") work.
+    const systemMessage = {
+      role: "system",
+      content: `${SYSTEM_MESSAGE.content}\n\nData about Aftab:\n${JSON.stringify(contentMap, null, 2)}`,
     };
+    const messages = [systemMessage, ...cleanHistory(body.history), { role: "user", content: question }];
 
     // Stream from OpenRouter. Free models get retired without notice, so pass
     // fallbacks: OpenRouter tries each in order until one is available.
     const completion = await openai.chat.completions.create({
       model: MODELS[0],
       models: MODELS,
-      messages: [SYSTEM_MESSAGE, userMessage],
+      messages,
       stream: true,
     });
 
@@ -176,6 +203,9 @@ export async function POST(req) {
     );
   } catch (error) {
     console.error("Handler error:", error);
-    return new Response("Internal Server Error", { status: 500 });
+    return Response.json(
+      { error: "EVA is having trouble answering right now. Please try again in a moment." },
+      { status: 500 }
+    );
   }
 }
