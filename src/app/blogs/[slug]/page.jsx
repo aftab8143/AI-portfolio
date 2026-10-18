@@ -20,6 +20,7 @@ export default function BlogDetailPage() {
   const [replyContent, setReplyContent] = useState("");
   const [replyName, setReplyName] = useState("");
   const [replyEmail, setReplyEmail] = useState("");
+  const [commentError, setCommentError] = useState("");
 
   useEffect(() => {
     if (slug) {
@@ -54,6 +55,8 @@ export default function BlogDetailPage() {
 
     doc.querySelectorAll("img").forEach((img) => {
       if (img.parentElement?.classList.contains("img-container")) return;
+      // Built-in posts already lay out their images in <figure> elements
+      if (img.closest("figure")) return;
 
       const wrapper = document.createElement("div");
       wrapper.className = "img-container-blog";
@@ -76,12 +79,15 @@ export default function BlogDetailPage() {
         },
         body: JSON.stringify({ name, email, content: newComment }),
       });
+      const data = await response.json().catch(() => ({}));
       if (response.ok) {
-        const data = await response.json();
         setComments([...comments, data]);
         setNewComment("");
         setName("");
         setEmail("");
+        setCommentError("");
+      } else {
+        setCommentError(data.error || "Couldn't post your comment. Please try again.");
       }
     } catch (error) {
       console.error("Error submitting comment:", error);
@@ -113,7 +119,10 @@ export default function BlogDetailPage() {
           parentId,
         }),
       });
-      if (response.ok) {
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        setCommentError(data.error || "Couldn't post your reply. Please try again.");
+      } else {
         const updated = await response.json();
         setComments((prev) =>
           prev.map((c) => (c._id === updated._id ? updated : c))
@@ -122,6 +131,7 @@ export default function BlogDetailPage() {
         setReplyContent("");
         setReplyName("");
         setReplyEmail("");
+        setCommentError("");
       }
     } catch (error) {
       console.error("Error submitting reply:", error);
@@ -138,8 +148,6 @@ export default function BlogDetailPage() {
     );
   }
 
-  if (!processedContent) return null;
-
   if (!blog) {
     return (
       <div className="text-center py-20 [color:var(--text-muted)]">
@@ -152,34 +160,75 @@ export default function BlogDetailPage() {
     );
   }
 
-  return (
-    <div className="min-h-screen px-4 py-10 max-w-6xl mx-auto [color:var(--text-light)]">
-      <div className="mt-10">
-        <Link href="/blogs" className="[color:var(--accent)] underline">
-          ← Back to Blogs
-        </Link>
-      </div>
-      <h1 className="text-4xl font-bold mb-2">{blog.title}</h1>
-      <p className="text-sm mb-6 [color:var(--text-muted)]">{blog.date}</p>
+  if (!processedContent) return null;
 
-      <div className="bg-white text-black rounded-xl p-4 pt-1 shadow-md mb-8">
-        <article
-          className="prose max-w-none
-            prose-pre:p-1 prose-pre:bg-slate-900 prose-pre:rounded prose-pre:my-1
-            prose-pre:overflow-x-auto prose-pre:whitespace-pre-wrap
-            prose-code:before:content-none prose-code:after:content-none
-            prose-code:text-sm prose-code:font-mono prose-code:leading-tight
-            prose-a:text-blue-600 
-            prose-table:border prose-table:border-collapse prose-table:w-full
-            prose-th:border prose-th:px-4 prose-th:py-2 prose-th:bg-gray-100
-            prose-td:border prose-td:px-4 prose-td:py-2
-            [&_p]:mb-3 [&_pre_code]:whitespace-pre-wrap [&_pre_code]:break-all"
-          dangerouslySetInnerHTML={{ __html: processedContent }}
-        />
+  const words = processedContent.replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length;
+  const readingTime = Math.max(1, Math.round(words / 220));
+
+  return (
+    <div className="mx-auto min-h-screen max-w-6xl px-4 pb-16 [color:var(--text-light)]">
+      <header className="mx-auto max-w-[760px] pt-8">
+        <Link href="/blogs" className="mono text-[12px] uppercase tracking-[0.18em] text-mid hover:text-hi">
+          ← All posts
+        </Link>
+        {blog.tags?.length > 0 && (
+          <ul className="mt-8 flex flex-wrap gap-2">
+            {blog.tags.map((t) => (
+              <li key={t} className="chip on">
+                {t}
+              </li>
+            ))}
+          </ul>
+        )}
+        <h1 className="h2 mt-5 !text-[clamp(34px,4.4vw,56px)] text-hi">{blog.title}</h1>
+        {blog.summary && <p className="lead mt-5">{blog.summary}</p>}
+        <div className="mt-8 flex items-center gap-3 border-b border-line pb-8">
+          <span
+            className="grid h-11 w-11 shrink-0 place-items-center rounded-full font-display text-[13px] font-bold text-[var(--on-accent)]"
+            style={{ background: "var(--grad)" }}
+            aria-hidden="true"
+          >
+            AA
+          </span>
+          <div className="text-[14px]">
+            <p className="font-semibold text-hi">Aftab Alam</p>
+            <p className="text-lo">
+              {blog.date} · {readingTime} min read
+            </p>
+          </div>
+        </div>
+      </header>
+
+      {blog.cover && (
+        <figure className="mx-auto mt-10 max-w-[1000px]">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={blog.cover}
+            alt={blog.coverAlt || ""}
+            className="w-full rounded-2xl border border-line object-cover"
+          />
+          {blog.coverAlt && (
+            <figcaption className="mt-3 text-center text-[14px] text-lo">{blog.coverAlt}</figcaption>
+          )}
+        </figure>
+      )}
+
+      <article
+        className="article mx-auto mt-12 max-w-[720px]"
+        dangerouslySetInnerHTML={{ __html: processedContent }}
+      />
+
+      <div className="mx-auto mb-12 mt-16 flex max-w-[720px] items-center justify-between gap-4 border-t border-line pt-8">
+        <Link href="/blogs" className="btn btn-glass">
+          ← More posts
+        </Link>
+        <Link href="/#contact" className="btn btn-primary">
+          Work with me →
+        </Link>
       </div>
 
       {/* Comments Section */}
-      <div className="rounded-xl p-8 shadow-md mb-8 border border-[var(--line)] bg-[var(--surface)] [color:var(--text-light)]">
+      <div className="mx-auto mb-8 max-w-[720px] rounded-xl border border-[var(--line)] bg-[var(--surface)] p-8 shadow-md [color:var(--text-light)]">
         <h2 className="text-2xl font-bold mb-6">
           Comments ({comments.length})
         </h2>
@@ -289,10 +338,15 @@ export default function BlogDetailPage() {
       </div>
 
       {/* Comment Form */}
-      <div className="rounded-xl p-8 shadow-lg border border-[var(--line)] bg-[var(--surface)]">
+      <div className="mx-auto max-w-[720px] rounded-xl border border-[var(--line)] bg-[var(--surface)] p-8 shadow-lg">
         <h2 className="text-2xl font-bold mb-6 text-[var(--accent)]">
           Join the Discussion
         </h2>
+        {commentError && (
+          <p role="alert" className="mb-4 rounded-lg border border-[#ff6b81]/40 bg-[#ff6b81]/10 px-4 py-3 text-sm [color:var(--text-light)]">
+            {commentError}
+          </p>
+        )}
         <form onSubmit={handleSubmitComment} className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>

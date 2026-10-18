@@ -42,7 +42,7 @@ export default function MyBlogsPage() {
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
           {blogs.map((blog) => {
             const imgMatch = blog.content.match(/<img[^>]+src="([^">]+)"/);
-            const imageUrl = imgMatch?.[1];
+            const imageUrl = blog.cover || imgMatch?.[1];
 
             return (
               <Link

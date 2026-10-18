@@ -9,7 +9,7 @@ import { Menu, X, Sun, Moon, Download } from "lucide-react";
 
 const navLinks = [
   { label: "Work", href: "/projects" },
-  { label: "Demos", href: "/demos" },
+  // { label: "Demos", href: "/demos" },
   { label: "Blog", href: "/blogs" },
   { label: "About", href: "/#about" },
   { label: "Contact", href: "/#contact" },

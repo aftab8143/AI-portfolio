@@ -1,0 +1,356 @@
+<!doctype html>
+<!--
+  Designed résumé — source for public/aftab-resume.pdf.
+  A plain single-column version for application forms lives in resume-ats.html.
+  Regenerate with any Chromium: Print → Save as PDF, A4, default margins,
+  "Background graphics" on.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Aftab Alam — Résumé</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 11mm 11mm 11mm; }
+  :root {
+    --ink: #16161a;
+    --mid: #3f3f47;
+    --lo: #6b6b74;
+    --line: #e7e2d6;
+    --gold: #a8832e;
+    --gold-deep: #7a5c12;
+    --gold-soft: #f6f1e4;
+    --panel: #fbf9f4;
+    --night: #111114;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #fff; }
+  body {
+    font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+    color: var(--mid);
+    font-size: 8.9pt;
+    line-height: 1.45;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  a { color: inherit; text-decoration: none; }
+  b { font-weight: 600; color: var(--ink); }
+
+  /* ---------- Header ---------- */
+  header {
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px;
+    background: var(--night);
+    color: #e9e7e1;
+    padding: 18px 22px 16px;
+  }
+  header::after {
+    content: "";
+    position: absolute;
+    right: -60px;
+    top: -90px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(201,162,75,.35), transparent 70%);
+  }
+  .head-row { position: relative; z-index: 1; display: flex; align-items: center; gap: 16px; }
+  .mark {
+    flex: none;
+    width: 46px; height: 46px;
+    display: grid; place-items: center;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #f2da8c, #c9a24b 55%, #9a7b2e);
+    color: #0a0a0c;
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 700; font-size: 15pt; letter-spacing: .02em;
+  }
+  h1 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 25pt; font-weight: 700; line-height: 1;
+    letter-spacing: -0.02em; color: #fff;
+  }
+  .role {
+    margin-top: 5px;
+    font-size: 10.5pt; font-weight: 600;
+    color: #e6c877; /* solid: gradient text doesn't survive PDF export */
+  }
+  .contact {
+    position: relative; z-index: 1;
+    margin-top: 13px; padding-top: 11px;
+    border-top: 1px solid rgba(255,255,255,.12);
+    display: flex; flex-wrap: wrap; gap: 5px 16px;
+    font-size: 8.4pt; color: #cfcbc1;
+  }
+  .contact span { display: inline-flex; align-items: center; gap: 6px; }
+  .contact svg { width: 11px; height: 11px; flex: none; stroke: #e0c271; }
+
+  /* ---------- Layout ---------- */
+  .grid { display: grid; grid-template-columns: minmax(0, 1fr) 182px; gap: 18px; margin-top: 14px; }
+
+  h2 {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 8pt; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 7px;
+  }
+  h2::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  section + section { margin-top: 13px; }
+
+  .summary { font-size: 9.2pt; line-height: 1.55; color: var(--mid); }
+
+  /* ---------- Experience timeline ---------- */
+  .timeline { position: relative; padding-left: 20px; }
+  .timeline::before {
+    content: ""; position: absolute; left: 4px; top: 5px; bottom: 6px;
+    width: 1.5px; background: linear-gradient(var(--gold), var(--line));
+  }
+  .job { position: relative; break-inside: avoid; }
+  .job + .job { margin-top: 11px; }
+  .job::before {
+    content: ""; position: absolute; left: -20px; top: 3px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: #fff; border: 2.5px solid var(--gold);
+  }
+  .job.current::before { background: var(--gold); box-shadow: 0 0 0 3px var(--gold-soft); }
+  .job-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+  .job-title { font-family: "Space Grotesk", sans-serif; font-size: 11pt; font-weight: 600; color: var(--ink); letter-spacing: -0.01em; }
+  .dates {
+    flex: none; font-size: 7.8pt; font-weight: 600; color: var(--gold-deep);
+    background: var(--gold-soft); border-radius: 99px; padding: 2px 8px;
+  }
+  .org { margin-top: 1px; font-size: 8.6pt; color: var(--lo); }
+  .track {
+    margin-top: 6px; font-size: 7.6pt; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--ink);
+  }
+  ul { margin-top: 3px; padding-left: 12px; }
+  li { margin-top: 2px; }
+  li::marker { color: var(--gold); }
+  .stack { margin-top: 5px; display: flex; flex-wrap: wrap; gap: 3px; }
+  .stack span {
+    font-size: 7.4pt; color: var(--mid);
+    border: 1px solid var(--line); border-radius: 99px; padding: 1px 7px; background: #fff;
+  }
+
+  /* ---------- Projects ---------- */
+  .projects { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .project {
+    break-inside: avoid;
+    border: 1px solid var(--line); border-radius: 10px; padding: 7px 9px;
+    background: #fff;
+  }
+  .project b { display: block; font-family: "Space Grotesk", sans-serif; font-size: 9.3pt; }
+  .project span { font-size: 8.1pt; color: var(--lo); line-height: 1.4; }
+
+  /* ---------- Sidebar ---------- */
+  aside { display: flex; flex-direction: column; gap: 12px; }
+  .panel { border-radius: 12px; background: var(--panel); border: 1px solid var(--line); padding: 11px 12px; break-inside: avoid; }
+  .panel h2 { margin-bottom: 8px; }
+
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .stat .num {
+    font-family: "Space Grotesk", sans-serif; font-size: 17pt; font-weight: 700; line-height: 1;
+    color: var(--gold-deep);
+  }
+  .stat .lbl { margin-top: 2px; font-size: 7.3pt; line-height: 1.3; color: var(--lo); }
+
+  .skill-group + .skill-group { margin-top: 7px; }
+  .skill-group p { font-size: 7.6pt; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); margin-bottom: 3px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 3px; }
+  .chips span {
+    font-size: 7.4pt; line-height: 1.3; color: var(--mid);
+    background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 1.5px 6px;
+  }
+  .chips.ai span { background: var(--gold-soft); border-color: #e6d6ac; color: var(--gold-deep); font-weight: 500; }
+
+  .edu b { display: block; font-size: 8.8pt; }
+  .edu span { display: block; font-size: 8.1pt; color: var(--lo); }
+
+  .links li { list-style: none; margin-top: 4px; font-size: 8pt; }
+  .links { padding-left: 0; }
+  .links small { display: block; font-size: 7pt; letter-spacing: .1em; text-transform: uppercase; color: var(--lo); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="head-row">
+    <div class="mark">AA</div>
+    <div>
+      <h1>Aftab Alam</h1>
+      <p class="role">Software Engineer · Full Stack, Mobile &amp; AI</p>
+    </div>
+  </div>
+  <div class="contact">
+    <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Ranchi, Jharkhand, India</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><a href="tel:+919955327833">+91 99553 27833</a></span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg><a href="mailto:aftab8143@gmail.com">aftab8143@gmail.com</a></span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg><a href="https://www.linkedin.com/in/aftab8143/">linkedin.com/in/aftab8143</a></span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 0 0-.9-2.6c3.1-.4 6.4-1.5 6.4-7A5.4 5.4 0 0 0 20 4.8 5 5 0 0 0 19.9 1S18.7.7 16 2.5a13.4 13.4 0 0 0-7 0C6.3.7 5.1 1 5.1 1A5 5 0 0 0 5 4.8a5.4 5.4 0 0 0-1.5 3.7c0 5.4 3.3 6.6 6.4 7a3.4 3.4 0 0 0-.9 2.6V22"/></svg><a href="https://github.com/aftab8143">github.com/aftab8143</a></span>
+  </div>
+</header>
+
+<div class="grid">
+  <main>
+    <section>
+      <h2>Summary</h2>
+      <p class="summary">
+        Software engineer with 4+ years of experience shipping web, mobile and AI products end to end — from QA
+        automation to React Native apps live on the App Store and Google Play, full stack Next.js platforms, and AI
+        agents connected to real business tools over MCP and controlled from Slack, Teams and WhatsApp. Currently
+        building the JIADA Unified IT System at Jharkhand Space Applications Centre.
+      </p>
+    </section>
+
+    <section>
+      <h2>Experience</h2>
+      <div class="timeline">
+
+        <div class="job current">
+          <div class="job-head">
+            <span class="job-title">Software Engineer</span>
+            <span class="dates">Jun 2026 – Present</span>
+          </div>
+          <p class="org">Jharkhand Space Applications Centre (JSAC) · Ranchi</p>
+          <ul>
+            <li>Working on the <b>JIADA Unified IT System</b> for the Jharkhand Industrial Area Development Authority — one portal for investors to search plots, apply for land allotment and approvals, and track applications across 160 industrial areas.</li>
+            <li>Applicant dashboard with region-wise plot availability and an interactive land availability map; online services for building plan approval, lease transfer, unit certificates and plot renewal.</li>
+            <li>Next: a land survey mobile app for field teams.</li>
+          </ul>
+        </div>
+
+        <div class="job">
+          <div class="job-head">
+            <span class="job-title">Full Stack &amp; AI Engineer</span>
+            <span class="dates">Feb 2025 – Apr 2026</span>
+          </div>
+          <p class="org">Jai Infoway Pvt. Ltd. · Ranchi</p>
+          <p class="track">AI agents &amp; MCP</p>
+          <ul>
+            <li>Built seven business AI agents for <b>Intellibooks Studio</b> — Banno Employee Assist, Capital Markets, Lead Generation, Outbound Campaign, Outreach Analytics Copilot, Sector Alert Outreach and Pipeline Builder.</li>
+            <li>Built the communication layer that lets users control their agents from Slack, Telegram, WhatsApp, Discord and Microsoft Teams, and worked on the MCP integration connecting agents to external systems.</li>
+            <li>Built <b>Koodums</b>' bring-your-own MCP server flow: choose a server, enter its key, and every tool it exposes becomes available to the agent in chat, with registration handled in the background.</li>
+            <li>Implemented MCP servers from scratch for Google Maps and YouTube tools, plus prompt clarification and context management (keeping recent turns only) for reliable, context-aware responses.</li>
+          </ul>
+          <p class="track">Web platforms</p>
+          <ul>
+            <li><b>PetLinx</b> (Next.js, PostgreSQL): built an append-only appointment audit log tracking payments, refunds, date and run changes.</li>
+            <li>Google authentication with email verification, client &amp; pet profile uploads with image cropping stored on AWS S3, and invite-based employee onboarding with password reset.</li>
+          </ul>
+          <div class="stack"><span>Python</span><span>MCP</span><span>Next.js</span><span>Node.js</span><span>PostgreSQL</span><span>Firebase</span><span>AWS S3</span></div>
+        </div>
+
+        <div class="job">
+          <div class="job-head">
+            <span class="job-title">Mobile App Developer</span>
+            <span class="dates">Jan 2023 – Feb 2025</span>
+          </div>
+          <p class="org">Jai Infoway Pvt. Ltd. · Ranchi</p>
+          <ul>
+            <li>Developed <b>Kiddie Kredit</b> end to end — a financial-literacy app for kids with gamified tasks and rewards, credit score simulation and child / guardian / admin roles; live on the App Store and Google Play.</li>
+            <li>Integrated in-app purchases and subscriptions on iOS and Android, Braze and Mixpanel for analytics and campaigns, push notifications and parental controls.</li>
+            <li>Reduced the Kiddie Kredit crash rate by 40% and improved app speed by 60% through performance tuning and lazy loading; delivered a payment integration in under 7 days.</li>
+            <li><b>Gopher</b>: Google Maps distance tracking between requester and receiver, and deep linking with Firebase Dynamic Links.</li>
+            <li><b>Intellibooks Waiter App</b>: revamped the UI, added long-press / tap table selection and simplified the order-to-billing flow.</li>
+            <li>Built a real-time WebRTC platform for doctor–patient video and audio calls.</li>
+          </ul>
+          <div class="stack"><span>React Native</span><span>Redux</span><span>Node.js</span><span>MongoDB</span><span>Firebase</span><span>AWS</span><span>GCP</span><span>WebRTC</span></div>
+        </div>
+
+        <div class="job">
+          <div class="job-head">
+            <span class="job-title">Test Automation Engineer</span>
+            <span class="dates">May 2022 – Jan 2023</span>
+          </div>
+          <p class="org">Jai Infoway Pvt. Ltd. · Ranchi</p>
+          <ul>
+            <li>Built Cypress test suites integrated into CI/CD for stable releases; logged regressions and drove test-coverage improvements in sprint retros.</li>
+            <li>Acted as QA lead on staging for finance and trading features.</li>
+          </ul>
+          <div class="stack"><span>Cypress</span><span>JavaScript</span><span>Postman</span><span>JIRA</span><span>Chrome DevTools</span></div>
+        </div>
+
+      </div>
+    </section>
+
+    <section>
+      <h2>Selected Projects</h2>
+      <div class="projects">
+        <div class="project"><b>JIADA Unified IT System</b><span>Industrial land and approvals portal for Jharkhand (current).</span></div>
+        <div class="project"><b>Intellibooks Studio</b><span>AI agent platform with MCP integrations and chat-app control · intellibooks.io</span></div>
+        <div class="project"><b>Koodums</b><span>Gen AI agent builder; 3-step MCP server connection · koodums.com</span></div>
+        <div class="project"><b>Kiddie Kredit</b><span>Kids' financial-literacy app on iOS and Android.</span></div>
+        <div class="project"><b>Gopher (Request App)</b><span>On-demand tasks &amp; delivery app with live map tracking and deep links · gophergo.io</span></div>
+        <div class="project"><b>Intellibooks Waiter App</b><span>Restaurant order-taking app for waiters, synced with kitchen and billing.</span></div>
+        <div class="project"><b>PetLinx</b><span>Grooming management platform · petlinx.com</span></div>
+        <div class="project"><b>SWIFI</b><span>SEC-filing data platform; filings web scraper and collaborative annotation tool (Node.js).</span></div>
+      </div>
+    </section>
+  </main>
+
+  <aside>
+    <div class="panel">
+      <h2>Highlights</h2>
+      <div class="stats">
+        <div class="stat"><div class="num">4+</div><div class="lbl">years shipping production software</div></div>
+        <div class="stat"><div class="num">7</div><div class="lbl">business AI agents built</div></div>
+        <div class="stat"><div class="num">40%</div><div class="lbl">fewer crashes in Kiddie Kredit</div></div>
+        <div class="stat"><div class="num">60%</div><div class="lbl">faster app via performance tuning</div></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Skills</h2>
+      <div class="skill-group">
+        <p>AI &amp; LLMs</p>
+        <div class="chips ai"><span>Python</span><span>LangChain</span><span>MCP</span><span>AI agents</span><span>RAG</span><span>Prompt &amp; context engineering</span></div>
+      </div>
+      <div class="skill-group">
+        <p>Frontend</p>
+        <div class="chips"><span>React</span><span>Next.js</span><span>React Native</span><span>Redux</span><span>Tailwind CSS</span><span>HTML</span><span>CSS</span></div>
+      </div>
+      <div class="skill-group">
+        <p>Backend</p>
+        <div class="chips"><span>Node.js</span><span>Express</span><span>REST APIs</span><span>GraphQL</span><span>WebRTC</span><span>Microservice-style APIs</span></div>
+      </div>
+      <div class="skill-group">
+        <p>Databases</p>
+        <div class="chips"><span>PostgreSQL</span><span>MongoDB</span><span>MySQL</span><span>Firebase</span></div>
+      </div>
+      <div class="skill-group">
+        <p>Cloud &amp; DevOps</p>
+        <div class="chips"><span>AWS (S3)</span><span>GCP</span><span>GitHub Actions</span><span>CI/CD</span><span>App Store &amp; Play releases</span></div>
+      </div>
+      <div class="skill-group">
+        <p>Testing &amp; tools</p>
+        <div class="chips"><span>Cypress</span><span>Jest</span><span>Postman</span><span>Git</span><span>JIRA</span><span>Mixpanel</span><span>Braze</span><span>Google Maps API</span><span>Firebase Dynamic Links</span></div>
+      </div>
+      <div class="skill-group">
+        <p>Languages</p>
+        <div class="chips"><span>JavaScript</span><span>TypeScript</span><span>Python</span></div>
+      </div>
+    </div>
+
+    <div class="panel edu">
+      <h2>Education</h2>
+      <b>B.Sc. in Information Technology</b>
+      <span>Ranchi University</span>
+      <span>2013 – 2016 · 75%</span>
+    </div>
+
+    <div class="panel">
+      <h2>Links</h2>
+      <ul class="links">
+        <li><small>GitHub</small><a href="https://github.com/aftab8143">github.com/aftab8143</a></li>
+        <li><small>LinkedIn</small><a href="https://www.linkedin.com/in/aftab8143/">linkedin.com/in/aftab8143</a></li>
+        <li><small>Email</small><a href="mailto:aftab8143@gmail.com">aftab8143@gmail.com</a></li>
+      </ul>
+    </div>
+  </aside>
+</div>
+
+</body>
+</html>

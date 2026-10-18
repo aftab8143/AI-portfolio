@@ -1,23 +1,45 @@
 const projects = [
   {
-    title: "PetLinx",
-    slug: "petlinx",
+    title: "JIADA Unified IT System",
+    slug: "jiada-unified-it-system",
     description:
-      "Effortless Grooming Management · Petlinx is the Software with Choices · Real-time insights for smarter management and efficiency.",
-    link: "https://petlinx.com/",
+      "Unified IT platform for the Jharkhand Industrial Area Development Authority (JIADA) — one portal for investors to find industrial plots, apply for land and approvals, and track applications across all 160 industrial areas in Jharkhand. Built at Jharkhand Space Applications Centre (JSAC).",
+    // Public URL is still a bare IP (pre-launch) — add the official domain here once live
+    link: null,
     images: [
-      "/projects/screenshots/petlinx/1.png",
-      "/projects/screenshots/petlinx/2.png",
+      "/projects/screenshots/jiada/dashboard.jpg",
+      "/projects/screenshots/jiada/services.jpg",
+      "/projects/screenshots/jiada/facilities.jpg",
+      "/projects/screenshots/jiada/notices.jpg",
     ],
-    tags: ["Next.js", "Node.js", "PostgreSQL", "Firebase", "Google Auth", "AWS S3"],
+    tags: ["Web Portal", "Applicant Dashboard", "Land Allotment", "Maps"],
     contributions: [
-      "Implemented a comprehensive appointment log system to track every change including payments, refunds, date updates, and run modifications.",
-        "Developed Google authentication and email verification during user signup for secure access.",
-        "Built profile upload features for clients and pets, including image cropping and storage in AWS S3 buckets.",
-        "Added employee onboarding flow with invite-based signup and password reset functionality.",
-        "Resolved various UI and backend bugs to improve overall stability and user experience."
+      "Working on the JIADA Unified IT System as a Software Engineer at JSAC.",
+      "Applicant dashboard with region-wise plot availability and a land availability map.",
+      "Next up: a mobile app for on-ground land surveys.",
     ],
-    displayImage: "/projects/screenshots/petlinx/1.png",
+    sections: [
+      {
+        title: "Investor Services",
+        text: "Online applications with published processing timelines.",
+        items: [
+          "Land Allotment",
+          "Building Plan Approval",
+          "Transfer of Lease Hold Rights",
+          "Unit Existence & Operational Certificate",
+          "Renewal of Allotted Plots",
+        ],
+      },
+      {
+        title: "Plot Discovery",
+        items: ["Plot Searching Tool", "Land Bank", "Region-wise Availability"],
+      },
+      {
+        title: "Land Survey Mobile App",
+        text: "Companion mobile app for land survey work in the field — upcoming.",
+      },
+    ],
+    displayImage: "/projects/screenshots/jiada/dashboard.jpg",
   },
   {
     title: "Kiddie Kredit",
@@ -52,27 +74,6 @@ const projects = [
     ],
   },
   {
-    title: "Intellibooks(Waiter App)",
-    slug: "intellibooks",
-    description:
-      "IntelliBooks restaurant management system designed to streamline order taking and management for waiters. It allows waiters to quickly enter orders, potentially using QR codes for table service, and sends those orders directly to the kitchen. The app also integrates with other IntelliBooks features like inventory management and billing, contributing to a more efficient and accurate restaurant operation.",
-    link: "https://intellibooks.io/",
-    images: [
-      "/projects/screenshots/intellibooks/Intellibooks.jpg",
-      "/projects/screenshots/intellibooks/Intellibooks1.png",
-      "/projects/screenshots/intellibooks/Intellibooks2.jpg",
-      // "/projects/screenshots/intellibooks/1.png",
-      // "/projects/screenshots/intellibooks/2.png",
-    ],
-    tags: ["React Native", "Node.js", "Express.js", "TypeScript"],
-    contributions: [
-     "Revamped the entire UI to enhance user experience and make the app more intuitive.",
-        "Implemented table selection using long press and single tap for multiple use cases, improving order flow efficiency.",
-        "Simplified the order-to-billing process by streamlining steps, reducing waiter effort and improving speed."
-    ],
-    displayImage: "/projects/screenshots/intellibooks/Intellibooks.jpg",
-  },
-   {
     title: "Gopher(Request App)",
     slug: "Request-App",
     description:
@@ -93,6 +94,110 @@ const projects = [
     ],
 
     displayImage: "/projects/screenshots/gopher/gopher2.JPG",
+  },
+  {
+    title: "Intellibooks: Waiter App",
+    slug: "intellibooks",
+    description:
+      "IntelliBooks restaurant management system designed to streamline order taking and management for waiters. It allows waiters to quickly enter orders, potentially using QR codes for table service, and sends those orders directly to the kitchen. The app also integrates with other IntelliBooks features like inventory management and billing, contributing to a more efficient and accurate restaurant operation.",
+    link: "https://intellibooks.io/",
+    images: [
+      "/projects/screenshots/intellibooks/Intellibooks.jpg",
+      "/projects/screenshots/intellibooks/Intellibooks1.png",
+      "/projects/screenshots/intellibooks/Intellibooks2.jpg",
+      // "/projects/screenshots/intellibooks/1.png",
+      // "/projects/screenshots/intellibooks/2.png",
+    ],
+    tags: ["React Native", "Node.js", "Express.js", "TypeScript"],
+    contributions: [
+     "Revamped the entire UI to enhance user experience and make the app more intuitive.",
+        "Implemented table selection using long press and single tap for multiple use cases, improving order flow efficiency.",
+        "Simplified the order-to-billing process by streamlining steps, reducing waiter effort and improving speed."
+    ],
+    displayImage: "/projects/screenshots/intellibooks/Intellibooks.jpg",
+  },
+  {
+    title: "PetLinx",
+    slug: "petlinx",
+    description:
+      "Effortless Grooming Management · Petlinx is the Software with Choices · Real-time insights for smarter management and efficiency.",
+    link: "https://petlinx.com/",
+    images: [
+      "/projects/screenshots/petlinx/1.png",
+      "/projects/screenshots/petlinx/2.png",
+    ],
+    tags: ["Next.js", "Node.js", "PostgreSQL", "Firebase", "Google Auth", "AWS S3"],
+    contributions: [
+      "Implemented a comprehensive appointment log system to track every change including payments, refunds, date updates, and run modifications.",
+        "Developed Google authentication and email verification during user signup for secure access.",
+        "Built profile upload features for clients and pets, including image cropping and storage in AWS S3 buckets.",
+        "Added employee onboarding flow with invite-based signup and password reset functionality.",
+        "Resolved various UI and backend bugs to improve overall stability and user experience."
+    ],
+    displayImage: "/projects/screenshots/petlinx/1.png",
+  },
+  {
+    title: "Koodums",
+    slug: "koodums",
+    description:
+      "Gen AI agent builder. I built the MCP integration that lets users connect their own MCP server to an agent in three easy steps and use all of its tools straight from chat.",
+    link: "https://www.koodums.com/",
+    images: [
+      "/projects/screenshots/koodums-chat/2.png",
+      "/projects/screenshots/koodums-chat/1.png",
+      "/projects/screenshots/koodums/1.jpg",
+    ],
+    tags: ["MCP", "AI Agents", "Node JS", "TypeScript"],
+    contributions: [
+      "Built MCP server integration for agents, so users can connect their own MCP server and talk to it through the agent in chat.",
+      "Designed a simple 3-step flow: choose the MCP server, enter its authorization key, and registration happens in the background.",
+      "Once connected, every tool exposed by the server becomes available to the agent automatically, ready to use in chat.",
+    ],
+    displayImage: "/projects/screenshots/koodums-chat/2.png",
+  },
+  {
+    title: "Intellibooks: Studio",
+    slug: "intellibooks-studio",
+    description:
+      "AI agent platform. I built a suite of business agents, the MCP integration layer, and the communication channels that let teams control their agents from Slack, Telegram, WhatsApp, Discord and Microsoft Teams.",
+    link: "https://www.intellibooks.io/",
+    images: [
+      "/projects/screenshots/intellibooks-studio/mcp.jpg",
+      "/projects/screenshots/intellibooks-studio/integrations.jpg",
+    ],
+    tags: ["AI Agents", "MCP", "Slack", "Telegram", "WhatsApp", "Discord", "Microsoft Teams"],
+    contributions: [
+      "Built seven AI agents covering employee assistance, capital markets, lead generation, outbound campaigns, outreach analytics, sector alerts and pipeline building.",
+      "Worked on the MCP integration that connects agents to external tools and systems.",
+      "Built the communication layer so users can talk to and control their agents from the chat apps they already use.",
+    ],
+    // Grouped detail shown on the project page
+    sections: [
+      {
+        title: "AI Agents",
+        items: [
+          "Banno Employee Assist Agent",
+          "Capital Markets Agent",
+          "Lead Generation Agent",
+          "Outbound Campaign Agent",
+          "Outreach Analytics Copilot",
+          "Sector Alert Outreach Agent",
+          "Pipeline Builder Agent",
+        ],
+      },
+      {
+        title: "MCP Integration",
+        text: "Model Context Protocol integration that lets agents discover and call tools across connected systems.",
+        link: "https://www.intellibooks.io/mcp",
+      },
+      {
+        title: "Communication Channels",
+        text: "Users control their agents from the apps their team already uses.",
+        items: ["Slack", "Telegram", "WhatsApp", "Discord", "Microsoft Teams"],
+        link: "https://www.intellibooks.io/integrations",
+      },
+    ],
+    displayImage: "/projects/screenshots/intellibooks-studio/mcp.jpg",
   },
   {
     title: "SWIFI",

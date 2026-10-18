@@ -11,8 +11,12 @@ const rowOne = [
   "AWS",
   "GCP",
   "GitHub Actions",
+  "Python",
   "OpenAI",
   "Claude",
+  "LangChain",
+  "MCP",
+  "AI Agents",
 ];
 
 const rowTwo = [

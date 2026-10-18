@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
 
 const EMAIL = "aftab8143@gmail.com";
@@ -12,15 +12,35 @@ const contactItems = [
 ];
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", message: "", type: "" });
-  const update = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
+  const empty = { name: "", email: "", message: "", type: "", website: "" };
+  const [form, setForm] = useState(empty);
+  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
+  const [error, setError] = useState("");
+  const startedAt = useRef(0);
+  const update = (k) => (e) => {
+    if (!startedAt.current) startedAt.current = Date.now();
+    setForm((f) => ({ ...f, [k]: e.target.value }));
+  };
 
-  // No backend: compose the enquiry in the visitor's mail client
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    const subject = `Portfolio enquiry from ${form.name}${form.type ? ` — ${form.type}` : ""}`;
-    const body = `${form.message}\n\n— ${form.name} (${form.email})`;
-    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    setStatus("sending");
+    setError("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, startedAt: startedAt.current }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || "Something went wrong.");
+      setStatus("sent");
+      setForm(empty);
+      startedAt.current = 0;
+    } catch (err) {
+      setStatus("error");
+      setError(err.message);
+    }
   };
 
   return (
@@ -92,10 +112,33 @@ export default function Contact() {
               What are you building? *
               <textarea required rows={5} className="field resize-y" value={form.message} onChange={update("message")} />
             </label>
+            {/* Honeypot: hidden from people, irresistible to bots */}
+            <label className="hidden" aria-hidden="true">
+              Website
+              <input tabIndex={-1} autoComplete="off" value={form.website} onChange={update("website")} />
+            </label>
+
+            {status === "sent" && (
+              <p role="status" className="rounded-xl border border-success/40 bg-success/10 px-4 py-3 text-[15px] text-hi">
+                Thanks — your message is on its way. I&apos;ll get back to you soon.
+              </p>
+            )}
+            {status === "error" && (
+              <p role="alert" className="rounded-xl border border-[#ff6b81]/40 bg-[#ff6b81]/10 px-4 py-3 text-[15px] text-hi">
+                {error}
+              </p>
+            )}
+
             <div className="flex flex-wrap items-center justify-between gap-4">
               <p className="dim">Replies within one business day.</p>
-              <button type="submit" className="btn btn-primary btn-lg" data-magnetic="0.2" data-cursor="Send">
-                Send →
+              <button
+                type="submit"
+                disabled={status === "sending"}
+                className="btn btn-primary btn-lg disabled:opacity-70"
+                data-magnetic="0.2"
+                data-cursor="Send"
+              >
+                {status === "sending" ? "Sending…" : "Send →"}
               </button>
             </div>
           </form>

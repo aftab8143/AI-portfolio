@@ -7,8 +7,10 @@ export async function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
 }
 
-export default function ProjectDetail({ params }) {
-  const project = projects.find((p) => p.slug === params.slug);
+// Next.js 15: route params arrive as a Promise and must be awaited
+export default async function ProjectDetail({ params }) {
+  const { slug } = await params;
+  const project = projects.find((p) => p.slug === slug);
   if (!project) return notFound();
 
   return (
@@ -48,6 +50,45 @@ export default function ProjectDetail({ params }) {
           ))}
         </ul>
       </div>
+
+      {/* Grouped detail (e.g. agents, integrations, channels) */}
+      {project.sections?.length > 0 && (
+        <div className="mt-10 grid gap-4 md:grid-cols-2">
+          {project.sections.map((section) => (
+            <div
+              key={section.title}
+              className={`glass p-6 ${section.items?.length > 5 ? "md:col-span-2" : ""}`}
+            >
+              <h3 className="h3">{section.title}</h3>
+              {section.text && (
+                <p className="mt-2" style={{ color: "var(--text-muted)" }}>
+                  {section.text}
+                </p>
+              )}
+              {section.items?.length > 0 && (
+                <ul className="mt-4 flex flex-wrap gap-2">
+                  {section.items.map((item) => (
+                    <li key={item} className="chip">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {section.link && (
+                <a
+                  href={section.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex items-center gap-2 text-sm hover:underline"
+                  style={{ color: "var(--accent)" }}
+                >
+                  <ExternalLink size={14} /> Learn more
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Tags */}
       <div className="mt-6 flex flex-wrap gap-2">

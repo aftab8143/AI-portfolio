@@ -617,3 +617,206 @@ html {
 @keyframes fade-in {
   0% { opacity: 0; transform: translateY(16px) scale(0.98); }
 }
+
+/* ---------- Blog article ---------- */
+.article {
+  font-size: 18px;
+  line-height: 1.75;
+  color: var(--text-mid);
+}
+
+.article > * + * {
+  margin-top: 1.25em;
+}
+
+.article h2 {
+  margin-top: 2.4em;
+  font-family: var(--font-display);
+  font-size: clamp(26px, 2.6vw, 34px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--text-hi);
+}
+
+.article h3 {
+  margin-top: 1.8em;
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 600;
+  color: var(--text-hi);
+}
+
+.article h2 + *,
+.article h3 + * {
+  margin-top: 0.7em;
+}
+
+.article strong {
+  font-weight: 600;
+  color: var(--text-hi);
+}
+
+.article a {
+  color: var(--accent-2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.article ul,
+.article ol {
+  padding-left: 1.4em;
+}
+
+.article ul {
+  list-style: disc;
+}
+
+.article ol {
+  list-style: decimal;
+}
+
+.article li + li {
+  margin-top: 0.45em;
+}
+
+.article li::marker {
+  color: var(--accent-2);
+}
+
+.article blockquote {
+  padding: 4px 0 4px 22px;
+  border-left: 2px solid var(--accent);
+  font-family: var(--font-display);
+  font-size: 21px;
+  line-height: 1.5;
+  color: var(--text-hi);
+}
+
+.article :not(pre) > code {
+  padding: 2px 6px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg-2);
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  color: var(--accent-ink);
+}
+
+.article pre {
+  overflow-x: auto;
+  padding: 20px 22px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #0d0e12;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.article pre code {
+  font-family: var(--font-mono);
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+.article hr {
+  margin-block: 2.5em;
+  border: 0;
+  border-top: 1px solid var(--line);
+}
+
+/* Figures: wide screenshots fill the column, phone shots sit in a frame */
+.article figure {
+  margin-block: 2em;
+}
+
+.article figure img {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+.article figure.phone {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  padding: 28px 16px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: radial-gradient(60% 70% at 50% 40%, var(--glow-warm), transparent 70%), var(--bg-1);
+}
+
+.article figure.phone img {
+  width: auto;
+  max-width: 44%;
+  max-height: 520px;
+  border-radius: 22px;
+}
+
+.article figure.phone figcaption {
+  display: none;
+}
+
+.article figcaption {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-lo);
+}
+
+.article .callout {
+  padding: 22px 24px;
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+.article .callout > * + * {
+  margin-top: 0.6em;
+}
+
+.article .callout-title {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+}
+
+/* ---------- EVA assistant launcher ---------- */
+.eva-launcher {
+  filter: drop-shadow(0 10px 24px rgba(201, 162, 75, 0.45));
+  transition: filter 0.3s;
+}
+
+.eva-launcher:hover {
+  filter: drop-shadow(0 12px 32px rgba(201, 162, 75, 0.7));
+}
+
+/* Gold halo that gently pulses outward to invite a click */
+.eva-halo {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  border: 1.5px solid rgba(242, 218, 140, 0.7);
+  animation: eva-halo 2.8s var(--ease-expo) infinite;
+  pointer-events: none;
+}
+
+@keyframes eva-halo {
+  0% { transform: scale(1); opacity: 0.8; }
+  80%, 100% { transform: scale(1.55); opacity: 0; }
+}
+
+.eva-tip {
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  box-shadow: 0 12px 40px -16px rgba(201, 162, 75, 0.55);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eva-halo {
+    animation: none;
+    opacity: 0;
+  }
+}

@@ -84,7 +84,7 @@ export default function HomeHero() {
             className="inline-block h-2 w-2 rounded-full bg-success shadow-[0_0_10px_var(--success)]"
             aria-hidden="true"
           />
-          Available for freelance & full-time roles · Shipping production apps since 2021
+          Available for freelance & full-time roles · Shipping production apps since 2022
         </p>
       </div>
 

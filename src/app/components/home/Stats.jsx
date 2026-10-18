@@ -6,9 +6,9 @@ import { projects } from "../../../../data";
 
 const stats = [
   { value: projects.length, suffix: "+", label: "Production apps shipped for clients", cta: "See the apps", href: "/projects" },
-  { value: 2021, suffix: "", label: "Shipping production code since", cta: "My journey", href: "/#about", plain: true },
-  { value: 3, suffix: "", label: "Roles: QA → Mobile → Full stack", cta: "Experience", href: "/#about" },
-  { value: 2, suffix: "", label: "Stores live: App Store & Google Play", cta: "Mobile work", href: "/projects" },
+  { value: 2022, suffix: "", label: "Shipping production code since", cta: "My journey", href: "/#about", plain: true },
+  { value: 4, suffix: "", label: "Roles: QA → Mobile → Full stack & AI → Software Engineer", cta: "Experience", href: "/#about" },
+  { value: 7, suffix: "", label: "Business AI agents built for Intellibooks Studio", cta: "See the agents", href: "/projects/intellibooks-studio" },
 ];
 
 // Counts up once the number scrolls into view

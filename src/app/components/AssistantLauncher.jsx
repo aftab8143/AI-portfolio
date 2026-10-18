@@ -29,45 +29,36 @@ export default function AssistantLauncher() {
         transition={{ delay: 0.4, duration: 0.4 }}
       >
         {/* Tooltip */}
- {showInfo && (
-  <motion.div
-    initial={{ opacity: 0, x: 20 }}
-    animate={{ opacity: 1, x: 0 }}
-    exit={{ opacity: 0, x: 20 }}
-    className="relative bg-black text-white text-sm rounded px-3 py-2 shadow-lg max-w-xs max-sm:hidden"
-  >
-    Ask EVA anything<br />
-    about Aftab’s portfolio
+        <AnimatePresence>
+          {showInfo && (
+            <motion.div
+              initial={{ opacity: 0, x: 16 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 16 }}
+              className="eva-tip glass relative max-w-xs !rounded-2xl px-4 py-2.5 max-sm:hidden"
+            >
+              <p className="flex items-center gap-2 text-[13.5px] font-semibold text-hi">
+                <span className="h-1.5 w-1.5 rounded-full bg-success shadow-[0_0_8px_var(--success)]" aria-hidden="true" />
+                Ask EVA anything
+              </p>
+              <p className="mt-0.5 text-[12.5px] text-mid">about Aftab&apos;s work &amp; experience</p>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-    {/* Arrow pointing to icon */}
-    <div
-      style={{
-        content: "''",
-        position: "absolute",
-        right: "-10px",
-        top: "50%",
-        transform: "translateY(-50%)",
-        width: 0,
-        height: 0,
-        borderTop: "8px solid transparent",
-        borderBottom: "8px solid transparent",
-        borderLeft: "10px solid black",
-      }}
-    />
-  </motion.div>
-)}
-
-
-
-        {/* Chat icon */}
-        <motion.div
+        {/* Launcher */}
+        <motion.button
+          type="button"
           onClick={() => setOpen(true)}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          className="cursor-pointer relative"
+          whileHover={{ scale: 1.08 }}
+          whileTap={{ scale: 0.94 }}
+          aria-label="Chat with EVA, Aftab's portfolio assistant"
+          data-cursor="Chat"
+          className="eva-launcher relative grid h-[60px] w-[60px] place-items-center rounded-full"
         >
-          <ChatBotIcon />
-        </motion.div>
+          <span className="eva-halo" aria-hidden="true" />
+          <ChatBotIcon size={60} />
+        </motion.button>
       </motion.div>
 
       <AnimatePresence>

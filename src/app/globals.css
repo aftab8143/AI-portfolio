@@ -997,7 +997,7 @@ footer:not(.site-footer) {
 }
 
 .img-container-blog img {
-  max-width: 200px;
+  max-width: 100%;
   height: auto;
   border-radius: 0.5rem;
   display: inline-block;

@@ -18,10 +18,30 @@ import {
   SiJest,
   SiGithubactions,
   SiCypress,
+  SiPython,
+  SiOpenai,
+  SiClaude,
+  SiLangchain,
 } from "react-icons/si";
-import { Layers, Server, Cloud, Database, Code2 } from "lucide-react";
+import { Layers, Server, Cloud, Database, Code2, Sparkles, Plug, Bot, FileSearch, MessageSquareText } from "lucide-react";
 
 const skillsByCategory = [
+  {
+    title: "AI & LLMs",
+    icon: Sparkles,
+    blurb: "AI agents that use real tools — LLMs connected to business systems over MCP and reachable from the chat apps teams already use.",
+    wide: true,
+    items: [
+      { icon: SiPython, label: "Python" },
+      { icon: SiOpenai, label: "OpenAI" },
+      { icon: SiClaude, label: "Claude" },
+      { icon: SiLangchain, label: "LangChain" },
+      { icon: Plug, label: "MCP (Model Context Protocol)" },
+      { icon: Bot, label: "AI Agents" },
+      { icon: FileSearch, label: "RAG" },
+      { icon: MessageSquareText, label: "Prompt & Context Engineering" },
+    ],
+  },
   {
     title: "Frontend",
     icon: Layers,
@@ -74,6 +94,7 @@ const skillsByCategory = [
     items: [
       { icon: SiJavascript, label: "JavaScript" },
       { icon: SiTypescript, label: "TypeScript" },
+      { icon: SiPython, label: "Python" },
     ],
   },
 ];
@@ -95,7 +116,12 @@ export default function Skills() {
           {skillsByCategory.map((cat, i) => {
             const Icon = cat.icon;
             return (
-              <div key={cat.title} className="glass spot p-7" data-reveal style={{ "--i": i }}>
+              <div
+                key={cat.title}
+                className={`glass spot p-7 ${cat.wide ? "md:col-span-2" : ""}`}
+                data-reveal
+                style={{ "--i": i }}
+              >
                 <span
                   className="grid h-11 w-11 place-items-center rounded-xl border border-line text-accent-2"
                   style={{ background: "color-mix(in srgb, var(--accent) 12%, transparent)" }}
@@ -116,9 +142,12 @@ export default function Skills() {
             );
           })}
 
-          <div className="glass flex flex-col justify-center p-7" data-reveal style={{ "--i": 5 }}>
-            <p className="eyebrow">Also working with</p>
-            <p className="h3 mt-4">LLMs, agents & RAG — OpenAI and Claude built into real products.</p>
+          <div className="glass flex flex-col justify-center p-7 lg:col-span-2" data-reveal style={{ "--i": 6 }}>
+            <p className="eyebrow">Recent work</p>
+            <p className="h3 mt-4">
+              Building AI agents end to end — LLMs, MCP tool integrations and chat channels like
+              Slack, Teams and WhatsApp.
+            </p>
             <a href="/demos" className="btn btn-glass mt-6 self-start">
               See AI demos →
             </a>

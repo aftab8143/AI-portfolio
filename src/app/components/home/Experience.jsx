@@ -1,23 +1,50 @@
 const experience = [
   {
-    title: "Full Stack Developer",
-    company: "Jai Infoway Pvt. Ltd.",
-    duration: "Nov 2024 – Present",
+    title: "Software Engineer",
+    company: "Jharkhand Space Applications Centre (JSAC)",
+    duration: "Jun 2026 – Present",
     description:
-      "Leading end-to-end development of web applications — turning product ideas into production features with scalable architecture, secure onboarding and modular, microservice-style APIs.",
+      "Working on the JIADA Unified IT System for the Jharkhand Industrial Area Development Authority.",
     highlights: [
-      "Appointment audit log tracking payments, refunds, date and run changes",
-      "Google auth + email verification on signup",
-      "Client & pet profile uploads with cropping, stored on AWS S3",
-      "Invite-based employee onboarding and password reset",
+      "One portal for plot search, land bank and land allotment across 160 industrial areas",
+      "Online investor services: building plan approval, lease transfer, unit certificates",
+      "Applicant dashboard with region-wise plot availability and a land map",
+      "Next: a land survey mobile app for field teams",
     ],
-    stack: ["Next.js", "Node.js", "PostgreSQL", "Firebase", "AWS S3"],
-    terminal: ["$ deploy --service appointments", "✓ build passed · tests green", "→ live on production"],
+    stack: [],
+    terminal: ["$ git checkout jiada-unified-it", "✓ joined JSAC · Jun 2026", "→ building now"],
+  },
+  {
+    title: "Full Stack & AI Engineer",
+    company: "Jai Infoway Pvt. Ltd.",
+    duration: "Feb 2025 – Apr 2026",
+    description: "Built AI agents and the full stack platforms around them.",
+    // Shown as two side-by-side columns instead of one highlight list
+    tracks: [
+      {
+        title: "AI Agents & MCP",
+        highlights: [
+          "Seven business AI agents for Intellibooks Studio — capital markets, lead generation, outreach and more",
+          "Agent control from Slack, Telegram, WhatsApp, Discord and Microsoft Teams",
+          "Koodums: connect your own MCP server in 3 steps and use its tools in chat",
+        ],
+        stack: ["Python", "OpenAI", "Claude", "MCP", "AI Agents"],
+      },
+      {
+        title: "Web Platforms",
+        highlights: [
+          "PetLinx: appointment audit log tracking payments, refunds, date and run changes",
+          "Google auth + email verification, and S3 profile uploads with cropping",
+          "Invite-based employee onboarding and modular, microservice-style APIs",
+        ],
+        stack: ["Next.js", "Node.js", "PostgreSQL", "Firebase", "AWS S3"],
+      },
+    ],
   },
   {
     title: "Mobile App Developer",
     company: "Jai Infoway Pvt. Ltd.",
-    duration: "Nov 2022 – Nov 2024",
+    duration: "Jan 2023 – Feb 2025",
     description:
       "Built feature-rich iOS & Android apps with precise UI, platform-specific optimisation, in-app purchases, parental controls and post-launch iteration driven by analytics.",
     highlights: [
@@ -31,7 +58,7 @@ const experience = [
   {
     title: "Test Automation Engineer",
     company: "Jai Infoway Pvt. Ltd.",
-    duration: "May 2021 – Nov 2022",
+    duration: "May 2022 – Jan 2023",
     description:
       "Built the automation pipelines behind stable releases — integration suites in CI/CD and close collaboration with developers on test-driven delivery.",
     highlights: [
@@ -43,6 +70,32 @@ const experience = [
     terminal: ["$ cypress run --record", "✓ all specs passing", "→ report uploaded to CI"],
   },
 ];
+
+function Highlights({ items }) {
+  return (
+    <ul className="mt-5 grid gap-2">
+      {items.map((h) => (
+        <li key={h} className="flex gap-3 text-[15px] text-mid">
+          <span className="mt-[9px] h-1 w-1 shrink-0 rounded-full bg-accent-2" aria-hidden="true" />
+          {h}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function Stack({ items }) {
+  if (!items?.length) return null;
+  return (
+    <ul className="mt-6 flex flex-wrap gap-2" aria-label="Technologies">
+      {items.map((t) => (
+        <li key={t} className="chip">
+          {t}
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 export default function Experience() {
   return (
@@ -58,8 +111,8 @@ export default function Experience() {
             covered.
           </h2>
           <p className="lead mt-4" data-reveal style={{ "--i": 2 }}>
-            Web, mobile and quality engineering — I&apos;ve worked every layer, so features ship
-            faster with fewer hand-offs.
+            AI agents, web, mobile and quality engineering — I&apos;ve worked every layer, so
+            features ship faster with fewer hand-offs.
           </p>
         </div>
 
@@ -67,7 +120,7 @@ export default function Experience() {
           {experience.map((job, i) => (
             <article
               key={job.title}
-              className="glass spot grid overflow-hidden sm:grid-cols-2"
+              className={`glass spot grid overflow-hidden ${job.tracks ? "" : "sm:grid-cols-2"}`}
               data-reveal
             >
               <div className="flex flex-col justify-between p-7 md:p-10">
@@ -78,25 +131,27 @@ export default function Experience() {
                     {job.company} · {job.duration}
                   </p>
                   <p className="muted mt-4 max-w-[48ch]">{job.description}</p>
-                  <ul className="mt-5 grid gap-2">
-                    {job.highlights.map((h) => (
-                      <li key={h} className="flex gap-3 text-[15px] text-mid">
-                        <span className="mt-[9px] h-1 w-1 shrink-0 rounded-full bg-accent-2" aria-hidden="true" />
-                        {h}
-                      </li>
-                    ))}
-                  </ul>
+                  {job.tracks ? (
+                    <div className="mt-7 grid gap-4 md:grid-cols-2">
+                      {job.tracks.map((track) => (
+                        <div key={track.title} className="flex flex-col justify-between rounded-2xl border border-line bg-bg-1/40 p-6">
+                          <div>
+                            <p className="eyebrow">{track.title}</p>
+                            <Highlights items={track.highlights} />
+                          </div>
+                          <Stack items={track.stack} />
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <Highlights items={job.highlights} />
+                  )}
                 </div>
-                <ul className="mt-6 flex flex-wrap gap-2" aria-label="Technologies">
-                  {job.stack.map((t) => (
-                    <li key={t} className="chip">
-                      {t}
-                    </li>
-                  ))}
-                </ul>
+                {!job.tracks && <Stack items={job.stack} />}
               </div>
 
               {/* Visual side: glowing orb behind a small terminal readout */}
+              {job.terminal && (
               <div className="relative grid min-h-[260px] place-items-center p-8" aria-hidden="true">
                 <div
                   className="absolute inset-[8%] opacity-80 blur-2xl"
@@ -125,6 +180,7 @@ export default function Experience() {
                   </p>
                 </div>
               </div>
+              )}
             </article>
           ))}
         </div>
