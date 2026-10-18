@@ -7,7 +7,7 @@ export default function About() {
         <div className="glass spot grid overflow-hidden md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]" data-reveal>
           <div className="relative min-h-[360px] overflow-hidden">
             <Image
-              src="/personal/profile1.jpg"
+              src="/personal/profile1.jpeg"
               alt="Aftab Alam"
               fill
               sizes="(min-width: 768px) 40vw, 100vw"
